@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Caribbean</string>
+    <string name="don_t_have_account_signup">Do not have account <u>SignUp Here</u></string>
+    <string name="intro_content">Hello All and welcome to Explore d’Caribbean.Explore d’Caribbean is a unique revolutionary way where business owners can digitize their business,which can be from any industry.
+        The world is heading into mobile (app) technology direction and this is an opportunity to jump on that train.
+        The average person spends a huge amount of time on their cell phones on a daily basis. This app gives most business
+        the opportunity to advertise for, a very low cost, what they have to offer to their customers at the palm of their hands.
+        The app is designed to cater for both Locals and Foreigners (Tourists).
+        The app is also design to promote growth to the economy in the Tourism Industry.
+        The app focuses on the entire Caribbean but for now only Trinidad and Tobago ( other islands in the future).</string>
+    <string name="localTitle">The Locals :</string>
+    <string name="foreignersTitle">Tourists ( Foreigners )</string>
+    <string name="localContent">How can this help me ( Local Business Owners ) ?\n\n All businesses have the opportunity now to display what they have to offer to everyone and can reach a greater audience. How many SALE, Deals and Promotion you have had and was not successful due to the lack of awareness to the public? How many people would like to have their sales boosted but are finding difficulties to do so?
+COVID-19 has hit us hard, most of us are struggling to not go out of business. Public Awareness is key to keep businesses operational and because the app is not industry specific, users who may not be searching for anything but can see what you have to offer at the comfort of their home.
+\n How can this help me ( I provide a service but do not have a business ) ?
+How many of us provide a service such as plumbing, electrician, masonry, home décor etc?There are so many locals who look for people who provide these services on a daily basis. This gives you the opportunity to be part of a “Craigslist” but not for products, more like a service to offer. This allows you to market yourself to obtain potential clients and to promote your entrepreneur skills!
+
+How can this help me ( Non – Business Owners ) ?
+How many of us missed SALE and Deals due to lack of awareness? How many of us are in the search for products or services but don’t know where to go? How many of us do not even know our own island? Well this app allows you to window shop from your home to some extent! This gives you the opportunity to see what is there to offer.
+</string>
+    <string name="foreignerContent">Are you visiting an island for a vacation for the first time? \n\n How many of us sit in our hotel rooms searching for where to explore or stay on a resort because you don’t know where to go for anything? Where are the beaches, the banks, the cuisine, the adventures etc? This app promote these areas for you to explore.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

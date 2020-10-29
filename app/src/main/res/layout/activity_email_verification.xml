@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        tools:context=".Activities.EmailVerification">
+
+        <TextView
+            android:id="@+id/emailVerification_emailStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Sent"
+            android:textSize="40sp"
+            android:textColor="@android:color/holo_green_dark"
+            android:layout_marginTop="@dimen/_40sdp"
+            />
+        <TextView
+            android:id="@+id/emailVerification_msg"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"
+            android:text="We sent a email on your email address please verify your email\n\nWe detect verification automatically"
+            />
+
+    </LinearLayout>
+</layout>

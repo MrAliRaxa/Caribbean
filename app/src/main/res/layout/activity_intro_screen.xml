@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activities.IntroScreen"
+        android:background="@drawable/intro_page"
+        android:orientation="vertical"
+        >
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_above="@id/introScreen_nextBtn"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Introduction"
+                        android:textSize="@dimen/_22sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/intro_content"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/localTitle"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:textColor="@android:color/white"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="@string/localContent"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/foreignersTitle"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:textColor="@android:color/white"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/foreignerContent"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/introScreen_nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="Next"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+</layout>

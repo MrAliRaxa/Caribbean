@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activities.CountryIntro"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.smarteist.autoimageslider.SliderView
+                android:background="@color/black"
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_weight=".4"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorRadius="4dp"
+                app:sliderIndicatorSelectedColor="#F10A0A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="3"
+                app:sliderStartAutoCycle="true" />
+            <Button
+                android:id="@+id/countryIntro_explorer"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/imageSlider"
+                android:text="Explore"
+                android:layout_margin="7dp"
+                />
+            <HorizontalScrollView
+                android:id="@+id/countryIntro_horizontalSlider"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/countryIntro_explorer"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/countryIntro_informationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Information   |"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:textSize="17sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/countryIntro_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="History   |"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:textSize="17sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/countryIntro_delicacies"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delicacies   |"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:textSize="17sp"
+                        />
+                    <TextView
+                        android:id="@+id/countryIntro_religion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Religion Culture   |"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:textSize="17sp"
+                        />
+                </LinearLayout>
+
+
+            </HorizontalScrollView>
+            <FrameLayout
+                android:id="@+id/countryIntro_fragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/countryIntro_horizontalSlider"
+
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

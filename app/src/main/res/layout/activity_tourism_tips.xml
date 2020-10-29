@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.TourismTips"
+    android:background="@drawable/tip_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 1 : Obtain a phone and a sim"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_one"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="Obtain a sim card and a phone. There are tourist/visitor/ travel plans available just for your temporary stay on the island. Please visit this kiosk before leaving the terminals. "/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 2: Value for your currency"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_two"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="Exchange your currency at local banks around the island to get more local currency for your currency ( see the average currency exchange on the countrySpinnerModel’s info page). This app will show you where all the banks on the island plus many more."/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 3: Rent a vehicle"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_three"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="It is recommended to rent a car during your stay on the island. Payment should be done using a credit card and not cash due to insurance purposes. You will also need to get a temporary licence to drive on the streets. When returning the vehicle ensure to refuel to the closest gas station to the airport to avoid paying for a full tank of fuel. ( please use the gas station location on the app to locate it )"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 4: Hydrate yourself regularly"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_four"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="Trinidad and Tobago is a relatively warm atmosphere and it a tropical island. You should wear lose light clothing so that you do not feel warm. If you are not accustomed to the heat ensure to hydrate yourself often.  Buy water by the cases at our local supermarkets and ensure you carry a bottle."/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 5: Safety"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_five"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="When exploring the island, try to stay in groups or around highly populated areas but spaced out. If you want to do site seeing and outdoor activities ( please see places of Interest) it is advisable to go with a tour guide. Do not venture out with large amounts of cash and jewelry. Store your valuables in a hotel safe or where you stay ( suitcase with lock and key )."/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip 6: Try our countrySpinnerModel’s favourite delicacies"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tip_six"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:textSize="16sp"
+                android:text="Ensure to taste our delicacies, which are mostly street vending, during your stay. There is a list of delicacies on the countrySpinnerModel’s information page with the most popular spots.  "/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>
