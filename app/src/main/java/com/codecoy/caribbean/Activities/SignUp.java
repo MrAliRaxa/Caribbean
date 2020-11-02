@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codecoy.caribbean.Constants.AccountType;
-import com.codecoy.caribbean.DataModel.UserProfile;
+import com.codecoy.caribbean.dataModel.UserProfile;
 import com.codecoy.caribbean.DatabaseController.DatabaseUploader;
 import com.codecoy.caribbean.Listeners.OnTaskListeners;
 import com.codecoy.caribbean.R;

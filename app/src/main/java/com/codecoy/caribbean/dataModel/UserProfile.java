@@ -1,4 +1,4 @@
-package com.codecoy.caribbean.DataModel;
+package com.codecoy.caribbean.dataModel;
 
 public class UserProfile {
     private String userName;

@@ -1,65 +1,86 @@
 package com.codecoy.caribbean.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
 
 import com.codecoy.caribbean.Adaptor.CounterySpinnerAdaptor;
-import com.codecoy.caribbean.DataModel.CountrySpinnerModel;
+import com.codecoy.caribbean.dataModel.Country;
+import com.codecoy.caribbean.dataModel.CountryInformation;
+import com.codecoy.caribbean.dataModel.CountrySlider;
+import com.codecoy.caribbean.dataModel.Delicacies;
+import com.codecoy.caribbean.Listeners.OnCountriesLoadListeners;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.Repository.Repository;
 import com.codecoy.caribbean.databinding.ActivityCountriesSelectionBinding;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CountriesSelection extends AppCompatActivity {
 
     private Spinner countriesSpinner;
+    private List<Country> countryList;
     private ActivityCountriesSelectionBinding selectionBinding;
+    private static final String TAG = "CountriesSelection";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_selection);
         selectionBinding= DataBindingUtil.setContentView(CountriesSelection.this,R.layout.activity_countries_selection);
+        countriesSpinner=selectionBinding.countrySpinner;
+        ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait . . .");
+        progressDialog.show();
 
-        List<CountrySpinnerModel> countrySpinnerModelList =new ArrayList<>();
-        CountrySpinnerModel trinidad=new CountrySpinnerModel();
-        CountrySpinnerModel stLucia=new CountrySpinnerModel();
-        CountrySpinnerModel jamaica=new CountrySpinnerModel();
-        CountrySpinnerModel barbados=new CountrySpinnerModel();
-        CountrySpinnerModel grenada=new CountrySpinnerModel();
-        trinidad.setCountryName("Trinidad & Tobago ");
-        trinidad.setDrawable(ContextCompat.getDrawable(this,R.drawable.trinidad));
-        countrySpinnerModelList.add(trinidad);
-        stLucia.setCountryName("St Lucia");
-        stLucia.setDrawable(ContextCompat.getDrawable(this,R.drawable.trinidad));
-        countrySpinnerModelList.add(stLucia);
-//
-        jamaica.setCountryName("Jamaica");
-        barbados.setCountryName("Barbados");
-        grenada.setCountryName("Grenada");
-        jamaica.setDrawable(ContextCompat.getDrawable(this,R.drawable.trinidad));
-        barbados.setDrawable(ContextCompat.getDrawable(this,R.drawable.trinidad));
-        grenada.setDrawable(ContextCompat.getDrawable(this,R.drawable.trinidad));
-        countrySpinnerModelList.add(jamaica);
-        countrySpinnerModelList.add(barbados);
-        countrySpinnerModelList.add(grenada);
+        Repository.getCountries(new OnCountriesLoadListeners() {
+            @Override
+            public void onCountriesLoaded(List<Country> countries) {
+                countryList=countries;
+                CounterySpinnerAdaptor counterySpinnerAdaptor=new CounterySpinnerAdaptor(CountriesSelection.this, countries);
+                selectionBinding.countrySpinner.setAdapter(counterySpinnerAdaptor);
+                progressDialog.dismiss();
+            }
 
+            @Override
+            public void onEmpty() {
+                Log.d(TAG, "onEmpty: ");
+                progressDialog.dismiss();
+            }
 
-        CounterySpinnerAdaptor counterySpinnerAdaptor=new CounterySpinnerAdaptor(this, countrySpinnerModelList);
-        selectionBinding.countrySpinner.setAdapter(counterySpinnerAdaptor);
+            @Override
+            public void onFailure(String e) {
+                Log.d(TAG, "onFailure: ");
+                progressDialog.dismiss();
+            }
+        });
+
         selectionBinding.countriesSelectionNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CountriesSelection.this,TouristTypeSelection.class));
+                Delicacies delicacies=countryList.get(countriesSpinner.getSelectedItemPosition()).getDelicacies();
+                CountryInformation information=countryList.get(countriesSpinner.getSelectedItemPosition()).getInformation();
+                CountrySlider slider=countryList.get(countriesSpinner.getSelectedItemPosition()).getCountrySlider();
+
+
+                Intent intent=new Intent(CountriesSelection.this,CountryIntro.class);
+                intent.putExtra("country",countryList.get(countriesSpinner.getSelectedItemPosition()));
+                intent.putExtra("delicacies",delicacies);
+                intent.putExtra("information",information);
+                intent.putExtra("slider",slider);
+
+                Log.d(TAG, "onClick: "+countryList.get(countriesSpinner.getSelectedItemPosition()).getInformation().getName());
+                startActivity(intent);
                 finish();
             }
         });
+
     }
 }

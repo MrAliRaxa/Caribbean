@@ -13,10 +13,10 @@ import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.databinding.FragmentHistoryBinding;
 
 
-public class History extends Fragment {
+public class HistoryFrag extends Fragment {
 
 
-    public History() {
+    public HistoryFrag() {
         // Required empty public constructor
     }
 
@@ -33,6 +33,7 @@ public class History extends Fragment {
 
         FragmentHistoryBinding historyBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_history,container,false);
 
+        historyBinding.countryIntroHistory.setText(getArguments().getString("history"));
 
         return historyBinding.getRoot();
     }

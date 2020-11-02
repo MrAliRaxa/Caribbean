@@ -12,11 +12,7 @@
         android:theme="@style/Theme.Caribbean">
         <activity android:name=".Activities.CountryIntro">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".Activities.LocalTourist" />
@@ -28,7 +24,11 @@
         <activity android:name=".Activities.SignUp" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.MainActivity" />
     </application>

@@ -1,4 +1,4 @@
-package com.codecoy.caribbean.DataModel;
+package com.codecoy.caribbean.dataModel;
 
 import android.graphics.drawable.Drawable;
 

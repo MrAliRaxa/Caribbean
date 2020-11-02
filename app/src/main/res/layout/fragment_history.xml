@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragments.History"
+        tools:context=".Fragments.HistoryFrag"
         android:background="@android:color/white"
         >
 
         <TextView
+            android:padding="@dimen/_10sdp"
             android:id="@+id/countryIntro_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-    </LinearLayout>
+    </ScrollView>
 </layout>

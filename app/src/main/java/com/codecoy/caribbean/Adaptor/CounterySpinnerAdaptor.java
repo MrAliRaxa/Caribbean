@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.codecoy.caribbean.DataModel.CountrySpinnerModel;
+import com.bumptech.glide.Glide;
+import com.codecoy.caribbean.dataModel.Country;
 import com.codecoy.caribbean.R;
 
 
@@ -19,20 +20,12 @@ import java.util.List;
 
 public class CounterySpinnerAdaptor extends BaseAdapter {
     private Context context;
-    private List<CountrySpinnerModel> countries;
+    private List<Country> countries;
 
-    public CounterySpinnerAdaptor(Context context, List<CountrySpinnerModel> countries) {
+    public CounterySpinnerAdaptor(Context context, List<Country> countries) {
         this.context = context;
         this.countries = countries;
     }
-
-
-    //    public CounterySpinnerAdaptor(@NonNull Context context, int resource,, List<Country> countries) {
-//        super(context, resource, countries);
-//        this.context=context;
-//        this.countries=countries;
-//        res=resource;
-//    }
 
     @Override
     public int getCount() {
@@ -56,9 +49,9 @@ public class CounterySpinnerAdaptor extends BaseAdapter {
          View view =LayoutInflater.from(context).inflate(R.layout.country_row,null);
          ImageView flag=view.findViewById(R.id.countryImage);
          TextView name=view.findViewById(R.id.countryTitle);
-         CountrySpinnerModel countrySpinnerModel =countries.get(position);
-         flag.setBackground(countrySpinnerModel.getDrawable());
-         name.setText(countrySpinnerModel.getCountryName());
+        Country Country =countries.get(position);
+        Glide.with(context).load(Country.getFlagImageUrl()).override(256,256).into(flag);
+         name.setText(Country.getInformation().getName());
          return view;
     }
 }
