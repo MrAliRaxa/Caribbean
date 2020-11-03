@@ -78,7 +78,7 @@ public class CountriesSelection extends AppCompatActivity {
 
                 Log.d(TAG, "onClick: "+countryList.get(countriesSpinner.getSelectedItemPosition()).getInformation().getName());
                 startActivity(intent);
-                finish();
+
             }
         });
 

@@ -8,22 +8,42 @@ public class CountryInformation implements Parcelable {
 
     private String motto;
     private String language;
-    private int population;
+    private String population;
     private String capital;
     private double temperature;
     private String currencyName;
+   private String extraInformation;
 
     public CountryInformation() {
     }
+
 
     protected CountryInformation(Parcel in) {
         name = in.readString();
         motto = in.readString();
         language = in.readString();
-        population = in.readInt();
+        population = in.readString();
         capital = in.readString();
         temperature = in.readDouble();
         currencyName = in.readString();
+        extraInformation = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(motto);
+        dest.writeString(language);
+        dest.writeString(population);
+        dest.writeString(capital);
+        dest.writeDouble(temperature);
+        dest.writeString(currencyName);
+        dest.writeString(extraInformation);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<CountryInformation> CREATOR = new Creator<CountryInformation>() {
@@ -37,6 +57,14 @@ public class CountryInformation implements Parcelable {
             return new CountryInformation[size];
         }
     };
+
+    public String getExtraInformation() {
+        return extraInformation;
+    }
+
+    public void setExtraInformation(String extraInformation) {
+        this.extraInformation = extraInformation;
+    }
 
     public String getName() {
         return name;
@@ -63,11 +91,11 @@ public class CountryInformation implements Parcelable {
         this.language = language;
     }
 
-    public int getPopulation() {
+    public String getPopulation() {
         return population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(String population) {
         this.population = population;
     }
 
@@ -95,19 +123,5 @@ public class CountryInformation implements Parcelable {
         this.currencyName = currencyName;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(motto);
-        dest.writeString(language);
-        dest.writeInt(population);
-        dest.writeString(capital);
-        dest.writeDouble(temperature);
-        dest.writeString(currencyName);
-    }
 }

@@ -8,7 +8,7 @@
         tools:context=".Fragments.DelicaciesFragm"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -31,12 +31,32 @@
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="3"
                 app:sliderStartAutoCycle="true" />
+            <FrameLayout
+                android:id="@+id/frameLayout1"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center">
+
+                <VideoView
+                    android:id="@+id/delicacies_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="top|center"
+                    android:visibility="visible"/>
+
+                <FrameLayout
+                    android:id="@+id/placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+            </FrameLayout>
             <TextView
                 android:padding="@dimen/_10sdp"
                 android:id="@+id/delicacies_text"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frameLayout1"
+                />
+        </RelativeLayout>
     </LinearLayout>
 </layout>

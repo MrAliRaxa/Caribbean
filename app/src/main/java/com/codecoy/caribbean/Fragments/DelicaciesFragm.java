@@ -1,14 +1,17 @@
 package com.codecoy.caribbean.Fragments;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.codecoy.caribbean.Adaptor.SliderAdaptor;
 import com.codecoy.caribbean.Constants.SliderType;
@@ -22,7 +25,7 @@ public class DelicaciesFragm extends Fragment {
 
 
     private Delicacies delicacies;
-
+    private static final String TAG = "DelicaciesFragm";
     public DelicaciesFragm() {
         // Required empty public constructor
     }
@@ -47,6 +50,7 @@ public class DelicaciesFragm extends Fragment {
         if (delicacies.getSliderContent() != null) {
 
             if (delicacies.getSliderType() == SliderType.IMAGE_SLIDER) {
+                view.findViewById(R.id.frameLayout1).setVisibility(View.INVISIBLE);
                 SliderAdaptor sliderAdaptor = new SliderAdaptor(getContext(), delicacies.getSliderContent());
                 sliderView.setSliderAdapter(sliderAdaptor);
                 sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP);
@@ -54,7 +58,18 @@ public class DelicaciesFragm extends Fragment {
                 sliderView.startAutoCycle();
             } else {
 
-
+                VideoView videoView=view.findViewById(R.id.delicacies_video);
+                videoView.setVideoPath(delicacies.getSliderContent().get(0));
+                videoView.requestFocus();
+                videoView.start();
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        view.findViewById(R.id.placeholder).setVisibility(View.GONE);
+                        view.findViewById(R.id.delicacies_slider).setVisibility(View.GONE);
+                        mp.setLooping(true);
+                    }
+                });
             }
 
         }

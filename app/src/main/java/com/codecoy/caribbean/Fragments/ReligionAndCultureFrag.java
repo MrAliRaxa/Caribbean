@@ -1,13 +1,16 @@
 package com.codecoy.caribbean.Fragments;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.codecoy.caribbean.Adaptor.SliderAdaptor;
 import com.codecoy.caribbean.Constants.SliderType;
@@ -21,6 +24,7 @@ import com.smarteist.autoimageslider.SliderView;
 public class ReligionAndCultureFrag extends Fragment {
 
     private ReligionAndCulture religionAndCulture;
+    private static final String TAG = "ReligionAndCultureFrag";
     public ReligionAndCultureFrag() {
     }
 
@@ -38,22 +42,35 @@ public class ReligionAndCultureFrag extends Fragment {
         // Inflate the layout for this fragment
         View root= inflater.inflate(R.layout.fragment_religon_and_culture, container, false);
 
-        SliderView sliderView = root.findViewById(R.id.delicacies_slider);
+        SliderView sliderView = root.findViewById(R.id.religion_slider);
         if (religionAndCulture.getSliderContent() != null) {
 
             if (religionAndCulture.getSliderType() == SliderType.IMAGE_SLIDER) {
+                root.findViewById(R.id.frameLayout1).setVisibility(View.INVISIBLE);
                 SliderAdaptor sliderAdaptor = new SliderAdaptor(getContext(), religionAndCulture.getSliderContent());
                 sliderView.setSliderAdapter(sliderAdaptor);
                 sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP);
                 sliderView.setSliderTransformAnimation(SliderAnimations.ZOOMOUTTRANSFORMATION);
                 sliderView.startAutoCycle();
             } else {
-
+                VideoView videoView=root.findViewById(R.id.religion_video);
+                Log.d(TAG, "onCreate: "+religionAndCulture.getSliderContent().get(0));
+                videoView.setVideoPath(religionAndCulture.getSliderContent().get(0));
+                videoView.requestFocus();
+                videoView.start();
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        root.findViewById(R.id.placeholder).setVisibility(View.GONE);
+                        root.findViewById(R.id.religion_slider).setVisibility(View.GONE);
+                        mp.setLooping(true);
+                    }
+                });
 
             }
 
         }
-        TextView delicaciesContent=root.findViewById(R.id.delicacies_text);
+        TextView delicaciesContent=root.findViewById(R.id.religion_text);
         delicaciesContent.setText(religionAndCulture.getDescription());
 
         return root;

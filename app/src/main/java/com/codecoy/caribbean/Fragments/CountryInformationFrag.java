@@ -56,7 +56,7 @@ public class CountryInformationFrag extends Fragment {
         capital.setText(information.getCapital());
         temp.setText(String.valueOf(information.getTemperature()));
         currency.setText(information.getCurrencyName());
-        other.setText(information.getName());
+        other.setText(information.getExtraInformation());
 
         Glide.with(getContext()).load(country.getFlagImageUrl()).override(256,256).into(flag);
         Glide.with(getContext()).load(country.getArmFlagUrl()).override(256,256).into(armFlag);
