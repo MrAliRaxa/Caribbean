@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.codecoy.caribbean.Adaptor.SliderAdaptor;
 import com.codecoy.caribbean.Constants.SliderType;
+import com.codecoy.caribbean.Fragments.ReligionAndCultureFrag;
 import com.codecoy.caribbean.dataModel.Country;
 import com.codecoy.caribbean.dataModel.CountryInformation;
 import com.codecoy.caribbean.dataModel.CountrySlider;
@@ -21,6 +23,7 @@ import com.codecoy.caribbean.Fragments.CountryInformationFrag;
 import com.codecoy.caribbean.Fragments.DelicaciesFragm;
 import com.codecoy.caribbean.Fragments.HistoryFrag;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.dataModel.ReligionAndCulture;
 import com.codecoy.caribbean.databinding.ActivityCountryIntroBinding;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -70,15 +73,25 @@ public class CountryIntro extends AppCompatActivity {
         if(country.getCountrySlider().getSliderContent()!=null){
 
             if(country.getCountrySlider().getSliderType()== SliderType.IMAGE_SLIDER){
+                mDataBinding.frameLayout1.setVisibility(View.INVISIBLE);
                 SliderAdaptor sliderAdaptor=new SliderAdaptor(this,country.getCountrySlider().getSliderContent());
                 mDataBinding.countryIntroImageSlider.setSliderAdapter(sliderAdaptor);
                 mDataBinding.countryIntroImageSlider.setIndicatorAnimation(IndicatorAnimationType.DROP);
                 mDataBinding.countryIntroImageSlider.setSliderTransformAnimation(SliderAnimations.ZOOMOUTTRANSFORMATION);
                 mDataBinding.countryIntroImageSlider.startAutoCycle();
             }else{
-                mDataBinding.countryIntroImageSlider.setVisibility(View.INVISIBLE);
-                mDataBinding.countryIntroVideo.setVideoURI(Uri.parse(country.getCountrySlider().getSliderContent().get(0)));
-
+                Log.d(TAG, "onCreate: "+country.getCountrySlider().getSliderContent().get(0));
+                mDataBinding.countryIntroVideo.setVideoPath(country.getCountrySlider().getSliderContent().get(0));
+                mDataBinding.countryIntroVideo.requestFocus();
+                mDataBinding.countryIntroVideo.start();
+                mDataBinding.countryIntroVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mDataBinding.placeholder.setVisibility(View.GONE);
+                        mDataBinding.countryIntroImageSlider.setVisibility(View.GONE);
+                        mp.setLooping(true);
+                    }
+                });
             }
 
         }
@@ -153,10 +166,11 @@ public class CountryIntro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
-                bundle.putParcelable("religionAndCulture",country.getDelicacies());
-                DelicaciesFragm delicaciesFragm=new DelicaciesFragm();
-                delicaciesFragm.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.countryIntro_fragmentContainer,delicaciesFragm)
+                bundle.putParcelable("religionAndCulture",country.getReligionAndCulture());
+                ReligionAndCultureFrag religionAndCultureFrag=new ReligionAndCultureFrag();
+                religionAndCultureFrag.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.countryIntro_fragmentContainer,religionAndCultureFrag)
                         .commit();
 
                 information.setTextColor(Color.BLACK);

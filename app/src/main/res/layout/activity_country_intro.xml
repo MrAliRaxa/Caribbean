@@ -31,20 +31,31 @@
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="3"
                 app:sliderStartAutoCycle="true" />
-
-            <VideoView
-                android:background="@color/black"
-                android:id="@+id/countryIntro_video"
+            <FrameLayout
+                android:id="@+id/frameLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:visibility="invisible"
-                />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20sdp"
+                >
+
+            <VideoView
+                android:id="@+id/countryIntro_video"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" android:layout_gravity="center_horizontal|center_vertical" android:visibility="visible"/>
+
+            <FrameLayout
+                android:id="@+id/placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+            </FrameLayout>
+
             <Button
                 android:id="@+id/countryIntro_explorer"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/countryIntro_imageSlider"
+                android:layout_below="@id/frameLayout1"
                 android:text="Explore"
                 android:layout_margin="7dp"
                 />
