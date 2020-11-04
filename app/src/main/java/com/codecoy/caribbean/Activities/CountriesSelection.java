@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Spinner;
 
 import com.codecoy.caribbean.Adaptor.CounterySpinnerAdaptor;
+import com.codecoy.caribbean.Util.CurrentUser;
 import com.codecoy.caribbean.dataModel.Country;
 import com.codecoy.caribbean.dataModel.CountryInformation;
 import com.codecoy.caribbean.dataModel.CountrySlider;
@@ -32,8 +35,10 @@ public class CountriesSelection extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_countries_selection);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         selectionBinding= DataBindingUtil.setContentView(CountriesSelection.this,R.layout.activity_countries_selection);
+
         countriesSpinner=selectionBinding.countrySpinner;
         ProgressDialog progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("Loading");
@@ -77,6 +82,7 @@ public class CountriesSelection extends AppCompatActivity {
                 intent.putExtra("slider",slider);
 
                 Log.d(TAG, "onClick: "+countryList.get(countriesSpinner.getSelectedItemPosition()).getInformation().getName());
+                CurrentUser.setSelectedCountry(countryList.get(countriesSpinner.getSelectedItemPosition()));
                 startActivity(intent);
 
             }

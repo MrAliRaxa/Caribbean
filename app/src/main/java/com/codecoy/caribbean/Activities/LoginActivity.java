@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.codecoy.caribbean.Listeners.OnUserProfileLoadListeners;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.Repository.Repository;
+import com.codecoy.caribbean.Util.CurrentUser;
+import com.codecoy.caribbean.dataModel.UserProfile;
 import com.codecoy.caribbean.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -128,13 +132,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null){
-                    if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                        startDashboard();
-                    }else{
-                        startEmailVerificationScreen();
-                    }
-                }
+                    Repository.getMyProfile(firebaseAuth.getUid(), new OnUserProfileLoadListeners() {
+                        @Override
+                        public void onUserProfileLoaded(UserProfile userProfile) {
+                            CurrentUser.setUserProfile(userProfile);
+                            startDashboard();
+                        }
+                        @Override
+                        public void onFailure(String e) {
+                            Toast.makeText(LoginActivity.this, "Invalid User", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
+                }
             }
         };
     }

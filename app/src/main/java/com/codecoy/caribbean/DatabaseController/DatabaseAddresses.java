@@ -17,4 +17,8 @@ public class DatabaseAddresses {
 
         return FirebaseFirestore.getInstance().collection("CountriesCollection");
     }
+    public static DocumentReference getTourismSliderCollection(){
+        return FirebaseFirestore.getInstance().collection("TourismSliderCollection")
+                .document("TourismSlider");
+    }
 }

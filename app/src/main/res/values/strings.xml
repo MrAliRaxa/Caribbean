@@ -21,4 +21,5 @@ How many of us missed SALE and Deals due to lack of awareness? How many of us ar
     <string name="foreignerContent">Are you visiting an island for a vacation for the first time? \n\n How many of us sit in our hotel rooms searching for where to explore or stay on a resort because you don’t know where to go for anything? Where are the beaches, the banks, the cuisine, the adventures etc? This app promote these areas for you to explore.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

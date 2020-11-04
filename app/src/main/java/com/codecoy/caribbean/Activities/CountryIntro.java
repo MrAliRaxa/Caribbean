@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.codecoy.caribbean.Adaptor.SliderAdaptor;
@@ -37,6 +39,8 @@ public class CountryIntro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mDataBinding= DataBindingUtil.setContentView(CountryIntro.this,R.layout.activity_country_intro);
         if(getIntent().getExtras()!=null){
             if(getIntent().getExtras().getParcelable("country")!=null){
