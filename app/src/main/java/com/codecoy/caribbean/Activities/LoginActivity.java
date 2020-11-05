@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.codecoy.caribbean.Repository.Repository;
 import com.codecoy.caribbean.Util.CurrentUser;
 import com.codecoy.caribbean.dataModel.UserProfile;
 import com.codecoy.caribbean.databinding.ActivityLoginBinding;
+import com.codecoy.caribbean.databinding.ForgetPasswordLayoutBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -51,6 +55,53 @@ public class LoginActivity extends AppCompatActivity {
         setAuthStateListener();
 
         activityLoginBinding= DataBindingUtil.setContentView(LoginActivity.this,R.layout.activity_login);
+        activityLoginBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgetPasswordLayoutBinding layoutBinding= DataBindingUtil.inflate(LayoutInflater.from(LoginActivity.this),R.layout.forget_password_layout,null,false);
+                AlertDialog forgetDialog=new AlertDialog.Builder(LoginActivity.this)
+                        .setView(layoutBinding.getRoot())
+                        .setTitle("Reset Password")
+                        .create();
+
+                layoutBinding.forgetPasswordSendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(layoutBinding.forgetPasswordEmail.getText().toString().isEmpty()){
+                            layoutBinding.forgetPasswordEmail.setError("Empty not allowed");
+                            return;
+                        }
+
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(layoutBinding.forgetPasswordEmail.getText().toString())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        AlertDialog emailSentDialog=new AlertDialog.Builder(LoginActivity.this)
+                                                .setTitle("Success")
+                                                .setMessage("Email sent successfully on your mail.")
+                                                .setCancelable(false)
+                                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                })
+                                                .create();
+
+                                        emailSentDialog.setCanceledOnTouchOutside(false);
+                                        emailSentDialog.show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(LoginActivity.this, "Error :"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                forgetDialog.show();
+            }
+        });
         activityLoginBinding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

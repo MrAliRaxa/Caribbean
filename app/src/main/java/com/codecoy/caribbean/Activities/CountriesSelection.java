@@ -74,7 +74,6 @@ public class CountriesSelection extends AppCompatActivity {
                 CountryInformation information=countryList.get(countriesSpinner.getSelectedItemPosition()).getInformation();
                 CountrySlider slider=countryList.get(countriesSpinner.getSelectedItemPosition()).getCountrySlider();
 
-
                 Intent intent=new Intent(CountriesSelection.this,CountryIntro.class);
                 intent.putExtra("country",countryList.get(countriesSpinner.getSelectedItemPosition()));
                 intent.putExtra("delicacies",delicacies);
