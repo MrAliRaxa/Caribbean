@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activities.CountriesSelection"
+        tools:context=".activities.CountriesSelection"
         android:background="@drawable/country_selection_bg"
         >
 
@@ -47,7 +47,7 @@
                 android:id="@+id/countrySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_margin="10dp"
                 />
         </LinearLayout>
 

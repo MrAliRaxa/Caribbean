@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activities.CountryIntro"
+        tools:context=".activities.CountryIntro"
         android:orientation="vertical"
         >
 
@@ -30,7 +30,14 @@
                 app:sliderIndicatorSelectedColor="#F10A0A"
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="3"
-                app:sliderStartAutoCycle="true" />
+                app:sliderStartAutoCycle="true" >
+
+
+                <FrameLayout
+                    android:id="@+id/placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+            </com.smarteist.autoimageslider.SliderView>
             <FrameLayout
                 android:id="@+id/frameLayout1"
                 android:layout_width="match_parent"
@@ -39,15 +46,10 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 >
 
-            <VideoView
-                android:id="@+id/countryIntro_video"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" android:layout_gravity="center_horizontal|center_vertical" android:visibility="visible"/>
-
-            <FrameLayout
-                android:id="@+id/placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                <com.jarvanmo.exoplayerview.ui.ExoVideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
             </FrameLayout>
 
             <Button
@@ -62,67 +64,140 @@
             <HorizontalScrollView
                 android:id="@+id/countryIntro_horizontalSlider"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="65dp"
                 android:layout_below="@id/countryIntro_explorer"
                 >
 
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/countryIntro_informationText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Information |"
-                        android:textColor="@android:color/black"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:textSize="17sp"
-                        />
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/navBar"
 
-                    <TextView
-                        android:id="@+id/countryIntro_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="History |"
-                        android:textColor="@android:color/black"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:textSize="17sp"
-                        />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
 
-                    <TextView
-                        android:id="@+id/countryIntro_delicacies"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delicacies |"
-                        android:textColor="@android:color/black"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:textSize="17sp"
-                        />
-                    <TextView
-                        android:id="@+id/countryIntro_religion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Religion Culture |"
-                        android:textColor="@android:color/black"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:textSize="17sp"
-                        />
-                </LinearLayout>
+                        >
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="7dp"
+                            >
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/countryIntro_informationText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Information |"
+                                    android:textColor="@android:color/black"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:textSize="17sp"
+                                    />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="7dp"
+                            >
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/countryIntro_history"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="History |"
+                                    android:textColor="@android:color/black"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:textSize="17sp"
+                                    />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="7dp"
+                            >
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/countryIntro_delicacies"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Delicacies |"
+                                    android:textColor="@android:color/black"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:textSize="17sp"
+                                    />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="50dp"
+                            app:cardElevation="7dp"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/countryIntro_religion"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:text="Religion Culture |"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="17sp" />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
 
 
             </HorizontalScrollView>
+            <ImageView
+                android:id="@+id/navDevider"
+                android:layout_below="@id/countryIntro_horizontalSlider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/solid_dark"
+                />
             <FrameLayout
                 android:id="@+id/countryIntro_fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/countryIntro_horizontalSlider"
-
+                android:layout_below="@id/navDevider"
                 />
 
         </RelativeLayout>

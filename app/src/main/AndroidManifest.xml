@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Caribbean">
-        <activity android:name=".Activities.ExplorerTourism">
+        <activity android:name=".activities.ExplorerTourism">
 
 
         </activity>
@@ -26,20 +26,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps">
 
         </activity>
-        <activity android:name=".Activities.CountryIntro" />
-        <activity android:name=".Activities.LocalTourist" />
-        <activity android:name=".Activities.TourismTips" />
-        <activity android:name=".Activities.TouristTypeSelection" />
-        <activity android:name=".Activities.CountriesSelection" />
-        <activity android:name=".Activities.IntroScreen" />
-        <activity android:name=".Activities.EmailVerification" />
-        <activity android:name=".Activities.SignUp" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.Splash">
+        <activity android:name=".activities.CountryIntro" />
+        <activity android:name=".activities.LocalTourist" />
+        <activity android:name=".activities.TourismTips" />
+        <activity android:name=".activities.TouristTypeSelection" />
+        <activity android:name=".activities.CountriesSelection" />
+        <activity android:name=".activities.IntroScreen" />
+        <activity android:name=".activities.EmailVerification" />
+        <activity android:name=".activities.SignUp" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.Splash">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>
