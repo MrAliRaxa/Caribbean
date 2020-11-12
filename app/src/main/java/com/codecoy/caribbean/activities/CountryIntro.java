@@ -69,7 +69,7 @@ public class CountryIntro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CountryIntro.this,TouristTypeSelection.class));
-
+                finish();
             }
         });
         if(country.getCountrySlider().getSliderContent()!=null){

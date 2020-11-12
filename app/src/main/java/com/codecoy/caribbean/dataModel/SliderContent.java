@@ -3,12 +3,12 @@ package com.codecoy.caribbean.dataModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TourismSlider {
+public class SliderContent {
     private List<String> sliderContent;
     private int sliderType;
     private String id;
 
-    public TourismSlider() {
+    public SliderContent() {
         sliderContent=new ArrayList<>();
     }
 

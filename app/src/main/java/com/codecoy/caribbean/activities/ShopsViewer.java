@@ -1,5 +1,11 @@
 package com.codecoy.caribbean.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,33 +14,24 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.codecoy.caribbean.adaptor.recycler_adaptor.CategoriesAdaptor;
+import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.adaptor.recycler_adaptor.ShopAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
 import com.codecoy.caribbean.constants.SliderType;
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
-import com.codecoy.caribbean.databinding.ActivityExplorerTourismBinding;
+import com.codecoy.caribbean.dataModel.SliderContent;
+import com.codecoy.caribbean.databinding.ActivityShopsViewerBinding;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
+import com.codecoy.caribbean.listeners.OnShopClick;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
-import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.repository.Repository;
-import com.codecoy.caribbean.dataModel.SliderContent;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,92 +40,87 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 
-public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCallback {
-
-    private SliderView sliderView;
-    private ActivityExplorerTourismBinding mDataBinding;
-    private static final String TAG = "ExplorerTourism";
+public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private CardView _1kmView;
     private CardView _3kmView;
     private CardView _6kmView;
+    private SliderView sliderView;
+    private static final String TAG = "ShopsViewer";
+    private ActivityShopsViewerBinding mDataBinding;
+    private String categoryId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDataBinding= DataBindingUtil.setContentView(ExplorerTourism.this,R.layout.activity_explorer_tourism);
+        if(getIntent()!=null){
+            categoryId=getIntent().getStringExtra("categoryId");
+        }
+        mDataBinding= DataBindingUtil.setContentView(ShopsViewer.this,R.layout.activity_shops_viewer);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.explorer_tourism_map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(ShopsViewer.this);
 
 
         sliderView=mDataBinding.explorerTourismSlider;
         _1kmView=mDataBinding.oneKm;
         _3kmView=mDataBinding.threeKm;
         _6kmView=mDataBinding.sixKm;
-
-
-
-
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mDataBinding.explorerTourismCategories.setLayoutManager(linearLayoutManager);
-
-
-
-
-        Repository.getShopCategoriesSlider(new OnSliderLoadListeners() {
+        Repository.getShopSlider(new OnSliderLoadListeners() {
             @Override
             public void onSliderLoaded(SliderContent sliderContent) {
-                Log.d(TAG, "onSliderLoaded: "+sliderContent.getSliderContent().toString());
                 if(sliderContent.getSliderType()== SliderType.IMAGE_SLIDER||sliderContent.getSliderType()==0){
                     sliderView.setSliderAdapter(new SliderAdaptor(getContext(), sliderContent.getSliderContent()));
-                    sliderView.setAutoCycle(true);
                     sliderView.startAutoCycle();
-                    sliderView.setIndicatorAnimation(IndicatorAnimationType.SCALE_DOWN);
                 }
             }
 
             @Override
             public void onNotFound() {
-                Toast.makeText(ExplorerTourism.this, "Slider Content Not Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Slider Content Not Found", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(String e) {
-                Toast.makeText(ExplorerTourism.this, "Error "+e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error "+e, Toast.LENGTH_SHORT).show();
             }
         });
-
         Repository.getCategories(new OnCategoriesLoadListeners() {
             @Override
             public void onCategoriesLoaded(List<ShopCategoryModel> categoryModels) {
-                CategoriesAdaptor categoriesAdaptor=new CategoriesAdaptor(getContext(),categoryModels);
-                mDataBinding.explorerTourismCategories.setAdapter(categoriesAdaptor);
+
 
             }
 
             @Override
             public void onEmpty() {
-                Toast.makeText(ExplorerTourism.this, "Empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Empty", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(String e) {
-                Toast.makeText(ExplorerTourism.this, "Error "+e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error "+e, Toast.LENGTH_SHORT).show();
 
             }
         });
-
-        Repository.getAllShops(new OnShopLoadListeners() {
+        Repository.getCategoriesShops(categoryId,new OnShopLoadListeners() {
             @Override
             public void onShopsLoaded(List<Shop> shops) {
+                ShopAdaptor shopAdaptor=new ShopAdaptor(getContext(), shops, new OnShopClick() {
+                    @Override
+                    public void onClick(LatLng pos, int index) {
+                        moveCamera(pos,1,mMap);
+                        Log.d(TAG, "onClick: ");
+                    }
+                });
+                mDataBinding.explorerTourismCategories.setAdapter(shopAdaptor);
                 if(mMap!=null){
 
                     for(Shop shop:shops){
@@ -163,19 +155,7 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
 
                         mMap.addMarker(markerOptions);
-                        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                            @Override
-                            public View getInfoWindow(Marker marker) {
-                                return null;
-                            }
 
-                            @Override
-                            public View getInfoContents(Marker marker) {
-                                View view= getLayoutInflater().inflate(R.layout.marker_snippet_layout,null);
-
-                                return view;
-                            }
-                        });
                     }
                 }
             }
@@ -190,21 +170,10 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
             }
         });
-
     }
 
-    private Context getContext(){
-        return ExplorerTourism.this;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    private Context getContext() {
+        return ShopsViewer.this;
     }
 
     @Override

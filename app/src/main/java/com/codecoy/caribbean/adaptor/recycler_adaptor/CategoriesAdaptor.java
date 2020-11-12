@@ -1,6 +1,7 @@
 package com.codecoy.caribbean.adaptor.recycler_adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.activities.ShopsViewer;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.databinding.CategoriesLayoutBinding;
 
@@ -38,6 +40,14 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.Vi
     public void onBindViewHolder(@NonNull CategoriesAdaptor.ViewHolder holder, int position) {
         holder.categoriesLayoutBinding.setCategory(shopCategoryModels.get(position));
         Glide.with(context).load(shopCategoryModels.get(position).getImageUrl()).override(256,256).into(holder.categoriesLayoutBinding.categoriesImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, ShopsViewer.class);
+                intent.putExtra("categoryId",shopCategoryModels.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

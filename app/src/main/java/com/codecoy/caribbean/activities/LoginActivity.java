@@ -231,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 FirebaseUser firebaseUser=authResult.getUser();
                 if(firebaseUser.isEmailVerified()){
-                    startDashboard();
+                    //startDashboard();
                     pd.dismiss();
 
                 }else{
