@@ -8,7 +8,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Caribbean">
-        <activity android:name=".activities.ShopsViewer"></activity>
+        <activity android:name=".activities.ShopView"></activity>
+        <activity android:name=".activities.ShopsViewer" />
         <activity android:name=".activities.ExplorerTourism">
 
         </activity>
@@ -28,7 +29,7 @@
 
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"/>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".activities.CountryIntro" />
         <activity android:name=".activities.LocalTourist" />
         <activity android:name=".activities.TourismTips" />
@@ -44,6 +45,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".activities.MainActivity" />
     </application>

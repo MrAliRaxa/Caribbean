@@ -2,6 +2,7 @@ package com.codecoy.caribbean.activities;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.codecoy.caribbean.constants.SliderType;
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.databinding.ActivityExplorerTourismBinding;
+import com.codecoy.caribbean.databinding.MarkerSnippetLayoutBinding;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
@@ -129,29 +132,45 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
         Repository.getAllShops(new OnShopLoadListeners() {
             @Override
             public void onShopsLoaded(List<Shop> shops) {
+
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        MarkerSnippetLayoutBinding snippetLayoutBinding=DataBindingUtil.inflate(getLayoutInflater(),R.layout.marker_snippet_layout,null,false);
+                        snippetLayoutBinding.snippetTitle.setText(marker.getTitle());
+                        snippetLayoutBinding.snippetDes.setText(marker.getSnippet());
+                        return snippetLayoutBinding.getRoot();
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+
+                        return null;
+                    }
+                });
                 if(mMap!=null){
 
                     for(Shop shop:shops){
                         LatLng latLng=new LatLng(shop.getLat(),shop.getLng());
-                        Log.d(TAG, "onShopsLoaded: "+shop.getLat()+" "+shop.getLng());
                         MarkerOptions markerOptions=new MarkerOptions();
-                        markerOptions.position(latLng);
                         markerOptions.title(shop.getName());
-                        markerOptions.snippet("Hellow Every One we are open 24 hours");
-                        Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two);
+                        markerOptions.snippet("Description will be there is shop add it");
+                        markerOptions.position(latLng);
+                        Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two_copy);
                         Bitmap lowQualityMarker=Bitmap.createScaledBitmap(highQualityMarker,160,190,false);
                         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(lowQualityMarker));
 
                         Glide.with(getContext())
                                 .asBitmap()
                                 .load(shop.getLogoUrl())
-                                .override(125,125)
+                                .override(120,120)
                                 .circleCrop()
+                                .placeholder(R.drawable.loading_image_spinner)
                                 .into(new CustomTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                         Log.d(TAG, "onResourceReady: ");
-                                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(resource)).anchor(.5f,1.45f));
+                                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(resource)).anchor(.5f,1.4f));
                                         moveCamera(latLng,6,mMap);
                                     }
 
@@ -163,19 +182,19 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
 
                         mMap.addMarker(markerOptions);
-                        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                        mMap.getUiSettings().setMapToolbarEnabled(false);
+                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
-                            public View getInfoWindow(Marker marker) {
-                                return null;
-                            }
-
-                            @Override
-                            public View getInfoContents(Marker marker) {
-                                View view= getLayoutInflater().inflate(R.layout.marker_snippet_layout,null);
-
-                                return view;
+                            public void onInfoWindowClick(Marker marker) {
+                                Intent intent=new Intent(getContext(),ShopView.class);
+                                intent.putExtra("shop",shop);
+                                startActivity(intent);
                             }
                         });
+
+
+
+
                     }
                 }
             }

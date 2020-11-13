@@ -1,9 +1,12 @@
 package com.codecoy.caribbean.dataModel;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 
-public class Shop {
+public class Shop implements Parcelable {
     private String name;
     private String logoUrl;
     private String bannerUrl;
@@ -15,6 +18,28 @@ public class Shop {
     public Shop() {
     }
 
+
+    protected Shop(Parcel in) {
+        name = in.readString();
+        logoUrl = in.readString();
+        bannerUrl = in.readString();
+        contact = in.readString();
+        categoryId = in.readString();
+        lat = in.readDouble();
+        lng = in.readDouble();
+    }
+
+    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
+        @Override
+        public Shop createFromParcel(Parcel in) {
+            return new Shop(in);
+        }
+
+        @Override
+        public Shop[] newArray(int size) {
+            return new Shop[size];
+        }
+    };
 
     public double getLat() {
         return lat;
@@ -70,5 +95,21 @@ public class Shop {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(logoUrl);
+        dest.writeString(bannerUrl);
+        dest.writeString(contact);
+        dest.writeString(categoryId);
+        dest.writeDouble(lat);
+        dest.writeDouble(lng);
     }
 }

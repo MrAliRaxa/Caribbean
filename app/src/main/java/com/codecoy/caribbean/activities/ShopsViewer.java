@@ -8,12 +8,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +29,7 @@ import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.dataModel.SliderContent;
 import com.codecoy.caribbean.databinding.ActivityShopsViewerBinding;
+import com.codecoy.caribbean.databinding.MarkerSnippetLayoutBinding;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
 import com.codecoy.caribbean.listeners.OnShopClick;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
@@ -40,6 +43,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -92,27 +96,12 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(getContext(), "Error "+e, Toast.LENGTH_SHORT).show();
             }
         });
-        Repository.getCategories(new OnCategoriesLoadListeners() {
-            @Override
-            public void onCategoriesLoaded(List<ShopCategoryModel> categoryModels) {
 
-
-            }
-
-            @Override
-            public void onEmpty() {
-                Toast.makeText(getContext(), "Empty", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(String e) {
-                Toast.makeText(getContext(), "Error "+e, Toast.LENGTH_SHORT).show();
-
-            }
-        });
         Repository.getCategoriesShops(categoryId,new OnShopLoadListeners() {
             @Override
             public void onShopsLoaded(List<Shop> shops) {
+
+
                 ShopAdaptor shopAdaptor=new ShopAdaptor(getContext(), shops, new OnShopClick() {
                     @Override
                     public void onClick(LatLng pos, int index) {
@@ -120,7 +109,24 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                         Log.d(TAG, "onClick: ");
                     }
                 });
+
                 mDataBinding.explorerTourismCategories.setAdapter(shopAdaptor);
+
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        MarkerSnippetLayoutBinding snippetLayoutBinding=DataBindingUtil.inflate(getLayoutInflater(),R.layout.marker_snippet_layout,null,false);
+                        snippetLayoutBinding.snippetTitle.setText(marker.getTitle());
+                        snippetLayoutBinding.snippetDes.setText(marker.getSnippet());
+                        return snippetLayoutBinding.getRoot();
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+
+                        return null;
+                    }
+                });
                 if(mMap!=null){
 
                     for(Shop shop:shops){
@@ -130,20 +136,20 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                         markerOptions.position(latLng);
                         markerOptions.title(shop.getName());
                         markerOptions.snippet("Hellow Every One we are open 24 hours");
-                        Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two);
+                        Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two_copy);
                         Bitmap lowQualityMarker=Bitmap.createScaledBitmap(highQualityMarker,160,190,false);
                         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(lowQualityMarker));
 
                         Glide.with(getContext())
                                 .asBitmap()
                                 .load(shop.getLogoUrl())
-                                .override(125,125)
+                                .override(120,120)
                                 .circleCrop()
                                 .into(new CustomTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                         Log.d(TAG, "onResourceReady: ");
-                                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(resource)).anchor(.5f,1.45f));
+                                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(resource)).anchor(.5f,1.4f));
                                         moveCamera(latLng,6,mMap);
                                     }
 
@@ -155,6 +161,14 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
 
 
                         mMap.addMarker(markerOptions);
+                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+                                Intent intent= new Intent(ShopsViewer.this, ShopView.class);
+                                intent.putExtra("shop",shop);
+                                startActivity(intent);
+                            }
+                        });
 
                     }
                 }
@@ -179,6 +193,7 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
         _6kmView.setOnClickListener(v->{
             moveCamera(mMap.getCameraPosition().target,6,mMap);
         });
