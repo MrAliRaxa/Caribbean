@@ -1,11 +1,15 @@
 package com.codecoy.caribbean.repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
+import com.codecoy.caribbean.listeners.OnCategoryLoadListeners;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
+import com.codecoy.caribbean.listeners.OnSingleShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
 import com.codecoy.caribbean.listeners.OnUserProfileLoadListeners;
 import com.codecoy.caribbean.dataModel.Country;
@@ -23,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
+
+    private static final String TAG = "Repository";
 
     public static void getCountries(OnCountriesLoadListeners onCountriesLoadListeners){
         DatabaseAddresses.getCountriesCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -44,6 +50,27 @@ public class Repository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 onCountriesLoadListeners.onFailure(e.getMessage());
+            }
+        });
+    }
+    public static void getShop(String shopId, OnSingleShopLoadListeners onSingleShopLoadListeners){
+
+        DatabaseAddresses.getShopDocument(shopId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                if(documentSnapshot.exists()){
+                    onSingleShopLoadListeners.onShopLoaded(documentSnapshot.toObject(Shop.class));
+                }else{
+                    onSingleShopLoadListeners.onEmpty();
+                    Log.d(TAG, "onSuccess: "+documentSnapshot.getReference().getPath());
+
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                onSingleShopLoadListeners.onFailure(e.getMessage());
             }
         });
     }
@@ -93,6 +120,25 @@ public class Repository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 onShopLoadListeners.onFailure(e.getMessage());
+            }
+        });
+    }
+    public static void getShopCategory(String categoryId, OnCategoryLoadListeners onCategoryLoadListeners){
+        DatabaseAddresses.getShopCategoryCollection().document(categoryId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            onCategoryLoadListeners.onCategoriesLoaded(documentSnapshot.toObject(ShopCategoryModel.class));
+                        }else{
+                            onCategoryLoadListeners.onEmpty();
+                            Log.d(TAG, "onSuccess: "+documentSnapshot.getReference().getPath());
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                onCategoryLoadListeners.onFailure(e.getMessage());
             }
         });
     }

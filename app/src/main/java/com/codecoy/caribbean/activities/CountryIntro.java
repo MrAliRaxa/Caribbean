@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
 import com.codecoy.caribbean.constants.SliderType;
-import com.codecoy.caribbean.fragments.ReligionAndCultureFrag;
+import com.codecoy.caribbean.fragments.country_intro.ReligionAndCultureFrag;
 import com.codecoy.caribbean.dataModel.Country;
 import com.codecoy.caribbean.dataModel.CountryInformation;
 import com.codecoy.caribbean.dataModel.CountrySlider;
 import com.codecoy.caribbean.dataModel.Delicacies;
-import com.codecoy.caribbean.fragments.CountryInformationFrag;
-import com.codecoy.caribbean.fragments.DelicaciesFragm;
-import com.codecoy.caribbean.fragments.HistoryFrag;
+import com.codecoy.caribbean.fragments.country_intro.CountryInformationFrag;
+import com.codecoy.caribbean.fragments.country_intro.DelicaciesFragm;
+import com.codecoy.caribbean.fragments.country_intro.HistoryFrag;
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.databinding.ActivityCountryIntroBinding;
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource;

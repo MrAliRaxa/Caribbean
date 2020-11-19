@@ -166,7 +166,7 @@
             android:id="@+id/explorer_tourism_categories"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
             />
 
 

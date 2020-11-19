@@ -34,7 +34,9 @@ public class SliderAdaptor extends SliderViewAdapter<SliderAdaptor.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
+
         Glide.with(context).load(mSliderItems.get(position)).placeholder(R.drawable.loading_image_spinner).into(viewHolder.sliderLayoutBinding.sliderLayoutImage);
+
     }
 
     @Override

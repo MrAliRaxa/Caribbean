@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.adaptor.maps_adaptor.InfoWindowAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.ShopAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
 import com.codecoy.caribbean.constants.SliderType;
@@ -112,30 +113,14 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
 
                 mDataBinding.explorerTourismCategories.setAdapter(shopAdaptor);
 
-                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                    @Override
-                    public View getInfoWindow(Marker marker) {
-                        MarkerSnippetLayoutBinding snippetLayoutBinding=DataBindingUtil.inflate(getLayoutInflater(),R.layout.marker_snippet_layout,null,false);
-                        snippetLayoutBinding.snippetTitle.setText(marker.getTitle());
-                        snippetLayoutBinding.snippetDes.setText(marker.getSnippet());
-                        return snippetLayoutBinding.getRoot();
-                    }
-
-                    @Override
-                    public View getInfoContents(Marker marker) {
-
-                        return null;
-                    }
-                });
                 if(mMap!=null){
 
                     for(Shop shop:shops){
                         LatLng latLng=new LatLng(shop.getLat(),shop.getLng());
-                        Log.d(TAG, "onShopsLoaded: "+shop.getLat()+" "+shop.getLng());
                         MarkerOptions markerOptions=new MarkerOptions();
-                        markerOptions.position(latLng);
                         markerOptions.title(shop.getName());
-                        markerOptions.snippet("Hellow Every One we are open 24 hours");
+                        markerOptions.snippet(shop.getId());
+                        markerOptions.position(latLng);
                         Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two_copy);
                         Bitmap lowQualityMarker=Bitmap.createScaledBitmap(highQualityMarker,160,190,false);
                         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(lowQualityMarker));
@@ -145,6 +130,7 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                                 .load(shop.getLogoUrl())
                                 .override(120,120)
                                 .circleCrop()
+                                .placeholder(R.drawable.loading_image_spinner)
                                 .into(new CustomTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -161,14 +147,20 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
 
 
                         mMap.addMarker(markerOptions);
+                        mMap.getUiSettings().setMapToolbarEnabled(false);
+                        mMap.setInfoWindowAdapter(new InfoWindowAdaptor(ShopsViewer.this,shop));
                         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
                             public void onInfoWindowClick(Marker marker) {
-                                Intent intent= new Intent(ShopsViewer.this, ShopView.class);
-                                intent.putExtra("shop",shop);
+                                Intent intent=new Intent(getContext(),ShopView.class);
+                                intent.putExtra("id",marker.getSnippet().trim());
+                                Log.d(TAG, "onInfoWindowClick: "+marker.getSnippet());
                                 startActivity(intent);
                             }
                         });
+
+
+
 
                     }
                 }

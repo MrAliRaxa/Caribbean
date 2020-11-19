@@ -1,4 +1,4 @@
-package com.codecoy.caribbean.fragments;
+package com.codecoy.caribbean.fragments.country_intro;
 
 import android.os.Bundle;
 

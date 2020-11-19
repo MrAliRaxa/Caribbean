@@ -16,7 +16,7 @@
                 android:id="@+id/shopView_shopBanner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/beach"
+                android:scaleType="centerCrop"
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -104,18 +104,19 @@
                     android:orientation="horizontal"
                     >
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/shop_view_deals_and_promotions"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
                             <TextView
-                                android:id="@+id/shopView_dealsAndPromotions"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Deals And Promotions |"
@@ -128,59 +129,14 @@
 
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/shopView_menu"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
-                        >
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/shopView_locations"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Location |"
-                                android:textColor="@android:color/black"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:textSize="17sp"
-                                />
-                        </LinearLayout>
+                        android:visibility="gone"
 
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="7dp"
-                        >
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/shopView_showroom"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Showroom |"
-                                android:textColor="@android:color/black"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:textSize="17sp"
-                                />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="7dp"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -199,11 +155,68 @@
 
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/shopView_locations"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+
+
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Location |"
+                                android:textColor="@android:color/black"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:textSize="17sp"
+                                />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/shopView_showroom"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="7dp"
+                        android:visibility="gone"
+
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Showroom |"
+                                android:textColor="@android:color/black"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:textSize="17sp"
+                                />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_prices"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -227,6 +240,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_directory"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -250,6 +266,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_stores"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -273,6 +292,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_websites"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -296,6 +317,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_atmLocation"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -319,6 +342,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_bankLocation"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -342,29 +368,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
-                        >
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Directory |"
-                                android:textColor="@android:color/black"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:textSize="17sp"
-                                />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_activites"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -388,6 +393,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_attractions"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -411,6 +418,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_building"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -434,6 +444,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_historicalSite"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -457,6 +469,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_wildLife"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -480,6 +495,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_north"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -503,6 +521,9 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_south"
+
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -526,6 +547,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_east"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -549,6 +572,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_west"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -572,6 +597,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_tobago"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -595,6 +622,8 @@
                         android:layout_margin="10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
+                        android:visibility="gone"
+                        android:id="@+id/shopView_information"
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -630,7 +659,7 @@
             android:background="@drawable/solid_dark"
             />
         <FrameLayout
-            android:id="@+id/countryIntro_fragmentContainer"
+            android:id="@+id/shopView_fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/navDevider"

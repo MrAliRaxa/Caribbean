@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.codecoy.caribbean.adaptor.maps_adaptor.InfoWindowAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.CategoriesAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
 import com.codecoy.caribbean.constants.SliderType;
@@ -133,28 +134,14 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onShopsLoaded(List<Shop> shops) {
 
-                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                    @Override
-                    public View getInfoWindow(Marker marker) {
-                        MarkerSnippetLayoutBinding snippetLayoutBinding=DataBindingUtil.inflate(getLayoutInflater(),R.layout.marker_snippet_layout,null,false);
-                        snippetLayoutBinding.snippetTitle.setText(marker.getTitle());
-                        snippetLayoutBinding.snippetDes.setText(marker.getSnippet());
-                        return snippetLayoutBinding.getRoot();
-                    }
 
-                    @Override
-                    public View getInfoContents(Marker marker) {
-
-                        return null;
-                    }
-                });
                 if(mMap!=null){
 
                     for(Shop shop:shops){
                         LatLng latLng=new LatLng(shop.getLat(),shop.getLng());
                         MarkerOptions markerOptions=new MarkerOptions();
                         markerOptions.title(shop.getName());
-                        markerOptions.snippet("Description will be there is shop add it");
+                        markerOptions.snippet(shop.getId());
                         markerOptions.position(latLng);
                         Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two_copy);
                         Bitmap lowQualityMarker=Bitmap.createScaledBitmap(highQualityMarker,160,190,false);
@@ -183,11 +170,13 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
                         mMap.addMarker(markerOptions);
                         mMap.getUiSettings().setMapToolbarEnabled(false);
+                        mMap.setInfoWindowAdapter(new InfoWindowAdaptor(ExplorerTourism.this,shop));
                         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
                             public void onInfoWindowClick(Marker marker) {
                                 Intent intent=new Intent(getContext(),ShopView.class);
-                                intent.putExtra("shop",shop);
+                                intent.putExtra("id",marker.getSnippet().trim());
+                                Log.d(TAG, "onInfoWindowClick: "+marker.getSnippet());
                                 startActivity(intent);
                             }
                         });
