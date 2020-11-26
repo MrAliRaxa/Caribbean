@@ -80,7 +80,6 @@ public class ShopView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_shop_view);
         mDataBinding= DataBindingUtil.setContentView(ShopView.this,R.layout.activity_shop_view);
         dealsAndPromostions=mDataBinding.shopViewDealsAndPromotions;
         locations=mDataBinding.shopViewLocations;
