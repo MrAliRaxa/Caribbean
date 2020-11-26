@@ -2,65 +2,92 @@ package com.codecoy.caribbean.fragments.shop_view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.airbnb.lottie.L;
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.activities.ShopsViewer;
+import com.codecoy.caribbean.adaptor.recycler_adaptor.ATMAdaptor;
+import com.codecoy.caribbean.dataModel.ATM;
+import com.codecoy.caribbean.databinding.FragmentATMLocationsBinding;
+import com.codecoy.caribbean.listeners.OnShopClick;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ATMLocations#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+
 public class ATMLocations extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private GoogleMap mMap;
     public ATMLocations() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ATMLocations.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ATMLocations newInstance(String param1, String param2) {
-        ATMLocations fragment = new ATMLocations();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_a_t_m_locations, container, false);
+
+        FragmentATMLocationsBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_a_t_m_locations, container, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map);
+        mapFragment.getMapAsync(googleMap -> {
+            mMap=googleMap;
+            if(mMap!=null){
+
+                List<ATM> atms=new ArrayList<>();
+                for(int i=0;i<40;i++){
+
+                    ATM atm=new ATM();
+                    atm.setId(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+                    atm.setAtmName("ATM "+i);
+                    atm.setLat(1.23489+i);
+                    atm.setLng(2.23445+i);
+                    atm.setAtmImage("https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/05/19/Photos/Processed/atms-kFAB--621x414@LiveMint.jpg");
+                    atms.add(atm);
+
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(atm.getLat(),atm.getLng())));
+                }
+
+                ATMAdaptor atmAdaptor=new ATMAdaptor(getContext(), atms, new OnShopClick() {
+                    @Override
+                    public void onClick(LatLng pos, int index) {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,15));
+                    }
+                });
+                LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                mDataBinding.atmLocationRecyclerView.setLayoutManager(layoutManager);
+                mDataBinding.atmLocationRecyclerView.setAdapter(atmAdaptor);
+
+            }
+        });
+
+
+
+
+
+        return mDataBinding.getRoot();
     }
+
+
 }

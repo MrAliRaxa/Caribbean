@@ -120,12 +120,14 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
             @Override
             public void onEmpty() {
-                Toast.makeText(ExplorerTourism.this, "Empty", Toast.LENGTH_SHORT).show();
+
+                mDataBinding.explorerTourismCategoryMesg.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure(String e) {
-                Toast.makeText(ExplorerTourism.this, "Error "+e, Toast.LENGTH_SHORT).show();
+                mDataBinding.explorerTourismCategoryMesg.setVisibility(View.VISIBLE);
+                mDataBinding.explorerTourismCategoryMesg.setText("Error "+e);
 
             }
         });
@@ -174,9 +176,10 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
                         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
                             public void onInfoWindowClick(Marker marker) {
+                                Log.d(TAG, "onInfoWindowClick: "+marker.getTitle());
+                                Log.d(TAG, "onInfoWindowClick: "+marker.getSnippet());
                                 Intent intent=new Intent(getContext(),ShopView.class);
                                 intent.putExtra("id",marker.getSnippet().trim());
-                                Log.d(TAG, "onInfoWindowClick: "+marker.getSnippet());
                                 startActivity(intent);
                             }
                         });

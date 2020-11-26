@@ -89,12 +89,12 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onNotFound() {
-                Toast.makeText(getContext(), "Slider Content Not Found", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onFailure(String e) {
-                Toast.makeText(getContext(), "Error "+e, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -119,6 +119,7 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                         LatLng latLng=new LatLng(shop.getLat(),shop.getLng());
                         MarkerOptions markerOptions=new MarkerOptions();
                         markerOptions.title(shop.getName());
+                        Log.d(TAG, "onShopsLoaded: "+shop.getId());
                         markerOptions.snippet(shop.getId());
                         markerOptions.position(latLng);
                         Bitmap highQualityMarker= BitmapFactory.decodeResource(getResources(),R.drawable.marker_two_copy);
@@ -159,21 +160,19 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                             }
                         });
 
-
-
-
                     }
                 }
             }
 
             @Override
             public void onEmpty() {
-
+                mDataBinding.shopsViewerMsg.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure(String e) {
-
+                mDataBinding.shopsViewerMsg.setVisibility(View.VISIBLE);
+                mDataBinding.shopsViewerMsg.setText("Error "+e);
             }
         });
     }

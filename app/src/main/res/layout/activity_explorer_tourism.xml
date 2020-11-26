@@ -164,12 +164,24 @@
 
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/explorer_tourism_categories"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="70dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/explorer_tourism_categories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/explorer_tourism_categoryMesg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Category Found"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
 
-            />
 
 
     </LinearLayout>

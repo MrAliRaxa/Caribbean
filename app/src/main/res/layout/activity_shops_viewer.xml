@@ -162,12 +162,25 @@
 
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/explorer_tourism_categories"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            />
+            android:layout_height="70dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/explorer_tourism_categories"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/shopsViewer_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Shop Found"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
