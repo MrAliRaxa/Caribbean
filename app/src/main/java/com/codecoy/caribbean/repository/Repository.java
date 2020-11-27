@@ -4,10 +4,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.codecoy.caribbean.dataModel.Item;
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
 import com.codecoy.caribbean.listeners.OnCategoryLoadListeners;
+import com.codecoy.caribbean.listeners.OnDealsLoadListeners;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSingleShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
@@ -25,6 +27,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Repository {
 
@@ -97,7 +101,6 @@ public class Repository {
             }
         });
     }
-
     public static void getCategoriesShops(String categoryId,OnShopLoadListeners onShopLoadListeners){
         DatabaseAddresses.getShopCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -155,7 +158,6 @@ public class Repository {
             }
         });
     }
-
     public static void getShopCategoriesSlider(OnSliderLoadListeners onSliderLoadListeners){
 
         DatabaseAddresses.getShopsCategorySliderCollection().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -214,6 +216,41 @@ public class Repository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 onCategoriesLoadListeners.onFailure(e.getMessage());
+            }
+        });
+    }
+    public static void getShopDealsAndPromotions(String shopId,OnDealsLoadListeners onDealsLoadListeners){
+
+        Executor executor= Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        DatabaseAddresses.getDealsCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<Item> items=new ArrayList<>();
+
+                for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
+                    Item item=documentSnapshot.toObject(Item.class);
+                    if(item.getShopId().equals(shopId)){
+                        items.add(item);
+                    }
+                }
+
+                if(items.size()>0){
+                    onDealsLoadListeners.onDealLoaded(items);
+                }else {
+                    onDealsLoadListeners.onEmpty();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                onDealsLoadListeners.onFailure(e.getMessage());
             }
         });
     }
