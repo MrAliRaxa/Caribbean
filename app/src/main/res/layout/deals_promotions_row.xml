@@ -24,16 +24,17 @@
                 >
 
                 <ImageView
-                    android:id="@+id/deals_row"
+                    android:id="@+id/deals_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/fastfood"
+                    android:scaleType="fitXY"
                     />
                 <TextView
+                    android:id="@+id/deals_description"
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="Want to enjoy snack meals for yourself or want larger deals for friends and family, Burger King has deals for both scenarios, with a deal on their Whopper Burger as well."
 
                     />

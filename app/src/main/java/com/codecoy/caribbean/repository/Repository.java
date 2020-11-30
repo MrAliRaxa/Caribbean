@@ -5,14 +5,22 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.codecoy.caribbean.dataModel.Item;
+import com.codecoy.caribbean.dataModel.MenuItem;
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
+import com.codecoy.caribbean.dataModel.ShopInformationModel;
+import com.codecoy.caribbean.dataModel.ShopLocation;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
 import com.codecoy.caribbean.listeners.OnCategoryLoadListeners;
 import com.codecoy.caribbean.listeners.OnDealsLoadListeners;
+import com.codecoy.caribbean.listeners.OnInformationLoadListeners;
+import com.codecoy.caribbean.listeners.OnItemLoadListeners;
+import com.codecoy.caribbean.listeners.OnMenuItemLoadListeners;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
+import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
 import com.codecoy.caribbean.listeners.OnSingleShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
+import com.codecoy.caribbean.listeners.OnStringLoadListeners;
 import com.codecoy.caribbean.listeners.OnUserProfileLoadListeners;
 import com.codecoy.caribbean.dataModel.Country;
 import com.codecoy.caribbean.database_controller.DatabaseAddresses;
@@ -29,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 public class Repository {
 
@@ -225,33 +234,149 @@ public class Repository {
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                DatabaseAddresses.getDealsCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        List<Item> items=new ArrayList<>();
+
+                        for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
+                            Item item=documentSnapshot.toObject(Item.class);
+                            if(item.getShopId().equals(shopId)){
+                                items.add(item);
+                            }
+                        }
+
+                        if(items.size()>0){
+                            onDealsLoadListeners.onDealLoaded(items);
+                        }else {
+                            onDealsLoadListeners.onEmpty();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onDealsLoadListeners.onFailure(e.getMessage());
+                    }
+                });
+            }
+        });
+
+    }
+    public static void getShopMenu(String shopId, OnMenuItemLoadListeners onMenuItemLoadListeners){
+
+        Executor executor= Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseAddresses.getShopMenuCollection().document(shopId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            onMenuItemLoadListeners.onMenuLoaded(documentSnapshot.toObject(MenuItem.class));
+                        }else{
+                            onMenuItemLoadListeners.onEmpty();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onMenuItemLoadListeners.onFailure(e.getMessage());
+                    }
+                });
 
             }
         });
-        DatabaseAddresses.getDealsCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+    }
+    public static void getShopLocations(String shopId, OnShopLocationLoadListeners onShopLocationLoadListeners){
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            public void run() {
+                DatabaseAddresses.getShopLocationCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                List<Item> items=new ArrayList<>();
+                        List<ShopLocation> shopLocations=new ArrayList<>();
 
-                for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
-                    Item item=documentSnapshot.toObject(Item.class);
-                    if(item.getShopId().equals(shopId)){
-                        items.add(item);
+                        for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
+                            ShopLocation location=documentSnapshot.toObject(ShopLocation.class);
+
+                            if(location.getShopId().equals(shopId)){
+                                shopLocations.add(location);
+                            }
+                        }
+
+                        if(shopLocations.size()>0){
+                            onShopLocationLoadListeners.onLocationsLoaded(shopLocations);
+                        }else {
+                            onShopLocationLoadListeners.onEmpty();
+                        }
                     }
-                }
-
-                if(items.size()>0){
-                    onDealsLoadListeners.onDealLoaded(items);
-                }else {
-                    onDealsLoadListeners.onEmpty();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                onDealsLoadListeners.onFailure(e.getMessage());
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onShopLocationLoadListeners.onFailure(e.getMessage());
+                    }
+                });
             }
         });
     }
+    public static void getShopInformation(String shopId, OnInformationLoadListeners onInformationLoadListeners){
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseAddresses.getShopInformationCollection().document(shopId)
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            onInformationLoadListeners.onInformationLoaded(documentSnapshot.toObject(ShopInformationModel.class));
+                        }else {
+                            onInformationLoadListeners.onNotFound();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onInformationLoadListeners.onError(e.getMessage());
+                    }
+                });
+            }
+        });
+
+    }
+    public static void getShopStoreItem(String shopId, OnItemLoadListeners onItemLoadListeners){
+
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseAddresses.getShopStoreCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<Item> items=new ArrayList<>();
+
+                        for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
+                            Item item=documentSnapshot.toObject(Item.class);
+                            if(item.getShopId().equals(shopId)){
+                                items.add(item);
+                            }
+                        }
+                        if(items.size()>0){
+                            onItemLoadListeners.onItemLoaded(items);
+                        }else{
+                            onItemLoadListeners.onEmpty();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onItemLoadListeners.onFailure(e.getMessage());
+                    }
+                });
+            }
+        });
+
+    }
+
 }

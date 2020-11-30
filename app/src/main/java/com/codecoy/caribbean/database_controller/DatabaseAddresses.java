@@ -10,7 +10,9 @@ public class DatabaseAddresses {
         return FirebaseFirestore.getInstance().collection("UserAccounts")
                 .document(docId);
     }
-
+    public static CollectionReference getShopStoreCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopStoreItemCollection");
+    }
     public static CollectionReference getCountriesCollection(){
         return FirebaseFirestore.getInstance().collection("CountriesCollection");
     }

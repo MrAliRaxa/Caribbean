@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.constants.ShopType;
+import com.codecoy.caribbean.constants.ShopViewType;
 import com.codecoy.caribbean.dataModel.Shop;
 import com.codecoy.caribbean.dataModel.ShopCategoryModel;
 import com.codecoy.caribbean.databinding.ActivityShopViewBinding;
@@ -261,12 +262,6 @@ public class ShopView extends AppCompatActivity {
                 replaceFragment(new WildLife());
             }
         });
-        dealsAndPromostions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new DealsAndPromotions());
-            }
-        });
         showRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,12 +305,6 @@ public class ShopView extends AppCompatActivity {
             }
         });
 
-        atmLocations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new ATMLocations());
-            }
-        });
         activities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,6 +365,9 @@ public class ShopView extends AppCompatActivity {
         });
     }
     private void replaceFragment(Fragment fragment){
+        Bundle bundle=new Bundle();
+        bundle.putParcelable("shop",shopGlobal);
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.shopView_fragmentContainer,fragment)
                 .commit();
     }

@@ -2,58 +2,42 @@ package com.codecoy.caribbean.fragments.shop_view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.dataModel.Shop;
+import com.codecoy.caribbean.dataModel.ShopInformationModel;
+import com.codecoy.caribbean.dataModel.ShopLocation;
+import com.codecoy.caribbean.databinding.FragmentInformationBinding;
+import com.codecoy.caribbean.listeners.OnInformationLoadListeners;
+import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
+import com.codecoy.caribbean.repository.Repository;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Information#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+
 public class Information extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+    private Shop shop;
+    private static final String TAG = "Information";
     public Information() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Information.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Information newInstance(String param1, String param2) {
-        Information fragment = new Information();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if(getArguments()!=null){
+            shop=getArguments().getParcelable("shop");
         }
     }
 
@@ -61,6 +45,37 @@ public class Information extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_information, container, false);
+        FragmentInformationBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_information, container, false);
+
+        Repository.getShopInformation(shop.getId(), new OnInformationLoadListeners() {
+            @Override
+            public void onInformationLoaded(ShopInformationModel shopInformationModel) {
+
+                mDataBinding.informationAboutUs.setText(shopInformationModel.getAboutUs());
+                mDataBinding.mondayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.tuesdayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.wednesdayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.thursdayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.fridayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.saturdayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.sundayTiming.setText(shopInformationModel.getMondayTiming());
+                mDataBinding.informationEmail.setText(shopInformationModel.getEmail());
+                mDataBinding.informationNumber.setText(shopInformationModel.getPhone());
+
+                Log.d(TAG, "onInformationLoaded: ");
+            }
+
+            @Override
+            public void onNotFound() {
+
+            }
+
+            @Override
+            public void onError(String e) {
+
+            }
+        });
+
+        return mDataBinding.getRoot();
     }
 }

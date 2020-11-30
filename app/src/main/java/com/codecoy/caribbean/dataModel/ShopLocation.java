@@ -7,10 +7,19 @@ public class ShopLocation {
     private String name;
     private double lat;
     private double lng;
+    private String shopAddress;
 
     public ShopLocation() {
     }
 
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
+    }
 
     public String getShopId() {
         return shopId;
