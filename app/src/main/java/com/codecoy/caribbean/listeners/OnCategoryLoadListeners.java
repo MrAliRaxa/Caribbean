@@ -1,8 +1,6 @@
 package com.codecoy.caribbean.listeners;
 
-import com.codecoy.caribbean.dataModel.ShopCategoryModel;
-
-import java.util.List;
+import com.codecoy.caribbean.data_model.ShopCategoryModel;
 
 public interface OnCategoryLoadListeners {
     public void onCategoriesLoaded(ShopCategoryModel shopCategoryModel);

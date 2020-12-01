@@ -11,15 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.Shop;
-import com.codecoy.caribbean.dataModel.ShopInformationModel;
-import com.codecoy.caribbean.dataModel.ShopLocation;
+import com.codecoy.caribbean.data_model.Shop;
+import com.codecoy.caribbean.data_model.ShopInformationModel;
 import com.codecoy.caribbean.databinding.FragmentInformationBinding;
 import com.codecoy.caribbean.listeners.OnInformationLoadListeners;
-import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
-
-import java.util.List;
 
 
 public class Information extends Fragment {

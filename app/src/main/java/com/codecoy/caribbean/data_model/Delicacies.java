@@ -1,4 +1,4 @@
-package com.codecoy.caribbean.dataModel;
+package com.codecoy.caribbean.data_model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,32 +6,32 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReligionAndCulture implements Parcelable {
+public class Delicacies implements Parcelable {
 
     private List<String> sliderContent;
     private String description;
     private int sliderType;
 
-    public ReligionAndCulture() {
+    public Delicacies() {
         sliderContent =new ArrayList<>();
     }
 
 
-    protected ReligionAndCulture(Parcel in) {
+    protected Delicacies(Parcel in) {
         sliderContent = in.createStringArrayList();
         description = in.readString();
         sliderType = in.readInt();
     }
 
-    public static final Creator<ReligionAndCulture> CREATOR = new Creator<ReligionAndCulture>() {
+    public static final Creator<Delicacies> CREATOR = new Creator<Delicacies>() {
         @Override
-        public ReligionAndCulture createFromParcel(Parcel in) {
-            return new ReligionAndCulture(in);
+        public Delicacies createFromParcel(Parcel in) {
+            return new Delicacies(in);
         }
 
         @Override
-        public ReligionAndCulture[] newArray(int size) {
-            return new ReligionAndCulture[size];
+        public Delicacies[] newArray(int size) {
+            return new Delicacies[size];
         }
     };
 

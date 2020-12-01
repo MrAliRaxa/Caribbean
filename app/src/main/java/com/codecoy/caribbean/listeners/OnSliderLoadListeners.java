@@ -1,6 +1,6 @@
 package com.codecoy.caribbean.listeners;
 
-import com.codecoy.caribbean.dataModel.SliderContent;
+import com.codecoy.caribbean.data_model.SliderContent;
 
 public interface OnSliderLoadListeners {
     public void onSliderLoaded(SliderContent sliderContent);

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.ShopLocation;
+import com.codecoy.caribbean.data_model.ShopLocation;
 import com.codecoy.caribbean.databinding.LocationRowBinding;
 
 import java.util.List;

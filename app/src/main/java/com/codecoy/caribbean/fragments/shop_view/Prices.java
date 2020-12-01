@@ -12,11 +12,18 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsAdaptor;
+import com.codecoy.caribbean.data_model.Item;
+import com.codecoy.caribbean.data_model.Shop;
+import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentPricesBinding;
+import com.codecoy.caribbean.listeners.OnItemLoadListeners;
+import com.codecoy.caribbean.repository.Repository;
+
+import java.util.List;
 
 public class Prices extends Fragment {
 
-
+    private Shop shop;
     public Prices() {
         // Required empty public constructor
     }
@@ -25,7 +32,9 @@ public class Prices extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if(getArguments()!=null){
+            shop=getArguments().getParcelable("shop");
+        }
     }
 
     @Override
@@ -34,8 +43,25 @@ public class Prices extends Fragment {
         // Inflate the layout for this fragment
         FragmentPricesBinding mDataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_prices, container, false);
 
-        mDataBinding.activitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDataBinding.activitiesRecyclerView.setAdapter(new DealsAdaptor(getContext()));
+        Repository.getShopItems(shop.getId(), DatabaseAddresses.getShopPricesCollection(), new OnItemLoadListeners() {
+            @Override
+            public void onItemLoaded(List<Item> itemList) {
+                mDataBinding.pricesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mDataBinding.pricesRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+            }
+
+            @Override
+            public void onEmpty() {
+                mDataBinding.pricesMsg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(String e) {
+                mDataBinding.pricesMsg.setVisibility(View.VISIBLE);
+                mDataBinding.pricesMsg.setText("Error "+e);
+            }
+        });
+
         return mDataBinding.getRoot();
     }
 }

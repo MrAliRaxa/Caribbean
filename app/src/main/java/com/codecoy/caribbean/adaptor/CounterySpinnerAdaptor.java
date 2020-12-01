@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.codecoy.caribbean.dataModel.Country;
+import com.codecoy.caribbean.data_model.Country;
 import com.codecoy.caribbean.R;
 
 

@@ -1,4 +1,4 @@
-package com.codecoy.caribbean.dataModel;
+package com.codecoy.caribbean.data_model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -14,7 +14,7 @@ import android.widget.VideoView;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
 import com.codecoy.caribbean.constants.SliderType;
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.Delicacies;
+import com.codecoy.caribbean.data_model.Delicacies;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;

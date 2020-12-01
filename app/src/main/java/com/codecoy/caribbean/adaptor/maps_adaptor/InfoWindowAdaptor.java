@@ -1,14 +1,13 @@
 package com.codecoy.caribbean.adaptor.maps_adaptor;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.Shop;
+import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.MarkerSnippetLayoutBinding;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;

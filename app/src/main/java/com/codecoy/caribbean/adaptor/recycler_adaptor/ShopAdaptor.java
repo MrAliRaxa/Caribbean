@@ -11,12 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.Shop;
-import com.codecoy.caribbean.dataModel.ShopCategoryModel;
-import com.codecoy.caribbean.databinding.CategoriesLayoutBinding;
+import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.ShopRowLayoutBinding;
 import com.codecoy.caribbean.listeners.OnShopClick;
-import com.codecoy.caribbean.listeners.OnShopLoadListeners;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
@@ -44,7 +41,7 @@ public class ShopAdaptor extends RecyclerView.Adapter<ShopAdaptor.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ShopAdaptor.ViewHolder holder, int position) {
         Shop shop=shops.get(position);
-        holder.shopRowLayoutBinding.setShop(shops.get(position));
+        holder.shopRowLayoutBinding.shopName.setText(shops.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

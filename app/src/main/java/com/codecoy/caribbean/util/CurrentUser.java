@@ -2,8 +2,8 @@ package com.codecoy.caribbean.util;
 
 
 import com.codecoy.caribbean.exceptions.CurrentUserNotFoundException;
-import com.codecoy.caribbean.dataModel.Country;
-import com.codecoy.caribbean.dataModel.UserProfile;
+import com.codecoy.caribbean.data_model.Country;
+import com.codecoy.caribbean.data_model.UserProfile;
 
 public class CurrentUser {
 

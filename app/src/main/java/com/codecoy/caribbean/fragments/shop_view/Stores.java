@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsAdaptor;
-import com.codecoy.caribbean.dataModel.Item;
-import com.codecoy.caribbean.dataModel.Shop;
+import com.codecoy.caribbean.data_model.Item;
+import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.FragmentStoresBinding;
 import com.codecoy.caribbean.listeners.OnItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;

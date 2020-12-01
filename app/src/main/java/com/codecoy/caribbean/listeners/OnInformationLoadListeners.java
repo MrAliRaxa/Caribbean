@@ -1,6 +1,6 @@
 package com.codecoy.caribbean.listeners;
 
-import com.codecoy.caribbean.dataModel.ShopInformationModel;
+import com.codecoy.caribbean.data_model.ShopInformationModel;
 
 public interface OnInformationLoadListeners {
     public void onInformationLoaded(ShopInformationModel shopInformationModel);

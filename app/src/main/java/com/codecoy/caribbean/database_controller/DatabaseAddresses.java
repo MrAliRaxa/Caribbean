@@ -10,6 +10,15 @@ public class DatabaseAddresses {
         return FirebaseFirestore.getInstance().collection("UserAccounts")
                 .document(docId);
     }
+    public static CollectionReference getShopDirectoryCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopDirectoryItemCollection");
+    }
+    public static CollectionReference getShopShowroomCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopShowroomItemCollection");
+    }
+    public static CollectionReference getShopPricesCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopPricesItemCollection");
+    }
     public static CollectionReference getShopStoreCollection(){
         return FirebaseFirestore.getInstance().collection("ShopStoreItemCollection");
     }
@@ -34,11 +43,19 @@ public class DatabaseAddresses {
         return FirebaseFirestore.getInstance().collection("SliderCollection")
                 .document("ShopsCategorySlider");
     }
+    public static CollectionReference getBankCollection(){
+        return FirebaseFirestore.getInstance().collection("BankLocationCollection");
+    }
     public static DocumentReference getShopsSliderDoc(){
         return FirebaseFirestore.getInstance().collection("SliderCollection")
                 .document("ShopsSlider");
     }
-
+    public static CollectionReference getShopWebsiteCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopWebsiteItemCollection");
+    }
+    public static CollectionReference getShopATMCollection(){
+        return FirebaseFirestore.getInstance().collection("ShopATMCollection");
+    }
     public static CollectionReference getDealsCollection(){
         return FirebaseFirestore.getInstance().collection("DealsAndPromotions");
     }

@@ -14,10 +14,10 @@ import android.widget.Spinner;
 
 import com.codecoy.caribbean.adaptor.CounterySpinnerAdaptor;
 import com.codecoy.caribbean.util.CurrentUser;
-import com.codecoy.caribbean.dataModel.Country;
-import com.codecoy.caribbean.dataModel.CountryInformation;
-import com.codecoy.caribbean.dataModel.CountrySlider;
-import com.codecoy.caribbean.dataModel.Delicacies;
+import com.codecoy.caribbean.data_model.Country;
+import com.codecoy.caribbean.data_model.CountryInformation;
+import com.codecoy.caribbean.data_model.CountrySlider;
+import com.codecoy.caribbean.data_model.Delicacies;
 import com.codecoy.caribbean.listeners.OnCountriesLoadListeners;
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.repository.Repository;

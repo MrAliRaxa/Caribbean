@@ -1,6 +1,6 @@
 package com.codecoy.caribbean.listeners;
 
-import com.codecoy.caribbean.dataModel.Country;
+import com.codecoy.caribbean.data_model.Country;
 
 import java.util.List;
 

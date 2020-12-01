@@ -4,7 +4,7 @@
     <data>
         <variable
             name="category"
-            type="com.codecoy.caribbean.dataModel.ShopCategoryModel" />
+            type="com.codecoy.caribbean.data_model.ShopCategoryModel" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.LocationsAdaptor;
-import com.codecoy.caribbean.dataModel.Shop;
-import com.codecoy.caribbean.dataModel.ShopLocation;
+import com.codecoy.caribbean.data_model.Shop;
+import com.codecoy.caribbean.data_model.ShopLocation;
+import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentLocationBinding;
 import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
@@ -49,7 +50,7 @@ public class Location extends Fragment {
         // Inflate the layout for this fragment
        FragmentLocationBinding mDataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_location, container, false);
 
-        Repository.getShopLocations(shop.getId(), new OnShopLocationLoadListeners() {
+        Repository.getLocations(shop.getId(), DatabaseAddresses.getShopLocationCollection(), new OnShopLocationLoadListeners() {
             @Override
             public void onLocationsLoaded(List<ShopLocation> locationList) {
                 RecyclerView recyclerView=mDataBinding.locationRecyclerView;

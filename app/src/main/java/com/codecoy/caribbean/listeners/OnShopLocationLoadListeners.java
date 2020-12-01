@@ -2,7 +2,7 @@ package com.codecoy.caribbean.listeners;
 
 
 
-import com.codecoy.caribbean.dataModel.ShopLocation;
+import com.codecoy.caribbean.data_model.ShopLocation;
 
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.Country;
-import com.codecoy.caribbean.dataModel.CountryInformation;
+import com.codecoy.caribbean.data_model.Country;
+import com.codecoy.caribbean.data_model.CountryInformation;
 
 public class CountryInformationFrag extends Fragment {
 

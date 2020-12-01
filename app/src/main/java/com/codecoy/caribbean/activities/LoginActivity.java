@@ -19,7 +19,7 @@ import com.codecoy.caribbean.listeners.OnUserProfileLoadListeners;
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.repository.Repository;
 import com.codecoy.caribbean.util.CurrentUser;
-import com.codecoy.caribbean.dataModel.UserProfile;
+import com.codecoy.caribbean.data_model.UserProfile;
 import com.codecoy.caribbean.databinding.ActivityLoginBinding;
 import com.codecoy.caribbean.databinding.ForgetPasswordLayoutBinding;
 import com.codecoy.caribbean.util.DialogBuilder;

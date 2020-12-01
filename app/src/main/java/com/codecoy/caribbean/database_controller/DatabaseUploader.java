@@ -2,7 +2,7 @@ package com.codecoy.caribbean.database_controller;
 
 import androidx.annotation.NonNull;
 
-import com.codecoy.caribbean.dataModel.UserProfile;
+import com.codecoy.caribbean.data_model.UserProfile;
 import com.codecoy.caribbean.listeners.OnTaskListeners;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

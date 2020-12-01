@@ -1,10 +1,8 @@
-package com.codecoy.caribbean.dataModel;
+package com.codecoy.caribbean.data_model;
 
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.android.gms.maps.model.LatLng;
 
 public class Shop implements Parcelable {
     private String name;

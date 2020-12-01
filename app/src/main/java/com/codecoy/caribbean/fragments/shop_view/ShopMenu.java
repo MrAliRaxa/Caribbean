@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.codecoy.caribbean.R;
-import com.codecoy.caribbean.dataModel.MenuItem;
-import com.codecoy.caribbean.dataModel.Shop;
+import com.codecoy.caribbean.data_model.MenuItem;
+import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.FragmentShopMenuBinding;
 import com.codecoy.caribbean.listeners.OnMenuItemLoadListeners;
-import com.codecoy.caribbean.listeners.OnStringLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
 
 public class ShopMenu extends Fragment {

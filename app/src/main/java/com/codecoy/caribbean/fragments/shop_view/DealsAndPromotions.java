@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsAdaptor;
-import com.codecoy.caribbean.dataModel.Item;
-import com.codecoy.caribbean.dataModel.Shop;
+import com.codecoy.caribbean.data_model.Item;
+import com.codecoy.caribbean.data_model.Shop;
+import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentDealsAndPromotionsBinding;
 import com.codecoy.caribbean.listeners.OnDealsLoadListeners;
+import com.codecoy.caribbean.listeners.OnItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
 
 import java.util.List;
@@ -48,24 +50,24 @@ public class DealsAndPromotions extends Fragment {
         // Inflate the layout for this fragment
         FragmentDealsAndPromotionsBinding mDataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_deals_and_promotions, container, false);
 
-        Repository.getShopDealsAndPromotions(shop.getId(), new OnDealsLoadListeners() {
+        Repository.getShopItems(shop.getId(), DatabaseAddresses.getDealsCollection(), new OnItemLoadListeners() {
             @Override
-            public void onDealLoaded(List<Item> item) {
+            public void onItemLoaded(List<Item> itemList) {
                 RecyclerView recyclerView=mDataBinding.dealsAndPromotionsRecyclerView;
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(new DealsAdaptor(getContext(),item));
+                recyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
             }
 
             @Override
             public void onEmpty() {
                 mDataBinding.dealsAndPromotionsMsg.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.dealsAndPromotionsMsg.setVisibility(View.VISIBLE);
                 mDataBinding.dealsAndPromotionsMsg.setText("Error "+e);
-
             }
         });
 

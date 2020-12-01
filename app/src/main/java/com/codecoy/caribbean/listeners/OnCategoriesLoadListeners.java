@@ -1,6 +1,6 @@
 package com.codecoy.caribbean.listeners;
 
-import com.codecoy.caribbean.dataModel.ShopCategoryModel;
+import com.codecoy.caribbean.data_model.ShopCategoryModel;
 
 import java.util.List;
 
