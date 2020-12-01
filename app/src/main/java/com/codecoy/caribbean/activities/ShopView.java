@@ -194,38 +194,49 @@ public class ShopView extends AppCompatActivity {
             historicalSites.setVisibility(View.VISIBLE);
             buildings.setVisibility(View.VISIBLE);
             wildlife.setVisibility(View.VISIBLE);
+            replaceFragment(new Activities());
         }else if(layoutType==ShopType.DDSI){
             dealsAndPromostions.setVisibility(View.VISIBLE);
             directory.setVisibility(View.VISIBLE);
             stores.setVisibility(View.VISIBLE);
             information.setVisibility(View.VISIBLE);
+            replaceFragment(new DealsAndPromotions());
         }else if(layoutType==ShopType.DS){
             directory.setVisibility(View.VISIBLE);
             stores.setVisibility(View.VISIBLE);
+            replaceFragment(new Directory());
         }else if(layoutType==ShopType.DSLI){
             dealsAndPromostions.setVisibility(View.VISIBLE);
             showRoom.setVisibility(View.VISIBLE);
             locations.setVisibility(View.VISIBLE);
             information.setVisibility(View.VISIBLE);
+            replaceFragment(new DealsAndPromotions());
+
         }else if(layoutType==ShopType.NSEWT){
             north.setVisibility(View.VISIBLE);
             south.setVisibility(View.VISIBLE);
             east.setVisibility(View.VISIBLE);
             west.setVisibility(View.VISIBLE);
             tobago.setVisibility(View.VISIBLE);
+            replaceFragment(new North());
+
         }else if(layoutType==ShopType.PSL){
             prices.setVisibility(View.VISIBLE);
             showRoom.setVisibility(View.VISIBLE);
             locations.setVisibility(View.VISIBLE);
             information.setVisibility(View.VISIBLE);
+            replaceFragment(new Location());
         }else if(layoutType==ShopType.SL){
             showRoom.setVisibility(View.VISIBLE);
             locations.setVisibility(View.VISIBLE);
+            replaceFragment(new Showroom());
         }else if(layoutType==ShopType.WABI){
             website.setVisibility(View.VISIBLE);
             atmLocations.setVisibility(View.VISIBLE);
             bankLocations.setVisibility(View.VISIBLE);
             information.setVisibility(View.VISIBLE);
+            replaceFragment(new ShopWebsite());
+
         }
     }
 

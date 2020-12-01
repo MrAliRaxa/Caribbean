@@ -12,11 +12,19 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsAdaptor;
+import com.codecoy.caribbean.data_model.Item;
+import com.codecoy.caribbean.data_model.Shop;
+import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentAttractionsBinding;
+import com.codecoy.caribbean.listeners.OnItemLoadListeners;
+import com.codecoy.caribbean.repository.Repository;
+
+import java.util.List;
 
 
 public class Attractions extends Fragment {
 
+    private Shop shop;
     public Attractions() {
         // Required empty public constructor
     }
@@ -26,6 +34,9 @@ public class Attractions extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            shop=getArguments().getParcelable("shop");
+        }
     }
 
     @Override
@@ -34,8 +45,26 @@ public class Attractions extends Fragment {
         // Inflate the layout for this fragment
         FragmentAttractionsBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_attractions, container, false);
 
-        mDataBinding.activitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDataBinding.activitiesRecyclerView.setAdapter(new DealsAdaptor(getContext()));
+        Repository.getShopItems(shop.getId(), DatabaseAddresses.getAttractionsCollection(), new OnItemLoadListeners() {
+            @Override
+            public void onItemLoaded(List<Item> itemList) {
+                mDataBinding.attractionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mDataBinding.attractionRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+            }
+
+            @Override
+            public void onEmpty() {
+                mDataBinding.attractionsMsg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(String e) {
+                mDataBinding.attractionsMsg.setVisibility(View.VISIBLE);
+                mDataBinding.attractionsMsg.setText("Error "+e);
+            }
+        });
+
+
 
         return mDataBinding.getRoot();
     }

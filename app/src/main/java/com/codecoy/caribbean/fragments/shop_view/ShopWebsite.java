@@ -1,6 +1,7 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class ShopWebsite extends Fragment {
         Repository.getShopWebsite(shop.getId(), new OnStringLoadListeners() {
             @Override
             public void onStringLoaded(String s) {
+                mDataBinding.shopWebsiteText.setPaintFlags(mDataBinding.shopWebsiteText.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
                 mDataBinding.shopWebsiteText.setText(s);
                 mDataBinding.shopWebsiteText.setOnClickListener(new View.OnClickListener() {
                     @Override

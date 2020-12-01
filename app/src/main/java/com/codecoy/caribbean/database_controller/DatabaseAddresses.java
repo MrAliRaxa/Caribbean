@@ -16,9 +16,22 @@ public class DatabaseAddresses {
     public static CollectionReference getShopShowroomCollection(){
         return FirebaseFirestore.getInstance().collection("ShopShowroomItemCollection");
     }
+    public static CollectionReference getActivitiesCollection(){
+        return FirebaseFirestore.getInstance().collection("ActivitiesCollection");
+    }
+    public static CollectionReference getAttractionsCollection(){
+        return FirebaseFirestore.getInstance().collection("AttractionsCollection");
+    }
     public static CollectionReference getShopPricesCollection(){
         return FirebaseFirestore.getInstance().collection("ShopPricesItemCollection");
     }
+    public static CollectionReference getBuildingCollection(){
+        return FirebaseFirestore.getInstance().collection("BuildingCollection");
+    }
+    public static CollectionReference getHistoricalCollection(){
+        return FirebaseFirestore.getInstance().collection("HistoricalCollection");
+    }
+
     public static CollectionReference getShopStoreCollection(){
         return FirebaseFirestore.getInstance().collection("ShopStoreItemCollection");
     }
@@ -39,6 +52,27 @@ public class DatabaseAddresses {
     public static CollectionReference getShopCategoryCollection(){
         return FirebaseFirestore.getInstance().collection("ShopCategoryCollection");
     }
+
+    public static CollectionReference getWildLifeCollection(){
+        return FirebaseFirestore.getInstance().collection("WildLifeCollection");
+    }
+    public static CollectionReference getNorthCollection(){
+        return FirebaseFirestore.getInstance().collection("NorthCollection");
+    }
+    public static CollectionReference getSouthCollection(){
+        return FirebaseFirestore.getInstance().collection("SouthCollection");
+    }
+    public static CollectionReference getWestCollection(){
+        return FirebaseFirestore.getInstance().collection("WestCollection");
+    }
+    public static CollectionReference getEastCollection(){
+        return FirebaseFirestore.getInstance().collection("EastCollection");
+    }
+
+    public static CollectionReference getTobagoCollection(){
+        return FirebaseFirestore.getInstance().collection("TobagoCollection");
+    }
+
     public static DocumentReference getShopsCategorySliderCollection(){
         return FirebaseFirestore.getInstance().collection("SliderCollection")
                 .document("ShopsCategorySlider");
