@@ -10,7 +10,7 @@
         app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp"
@@ -31,8 +31,9 @@
                     android:singleLine="true"
                     android:text="title"
                     android:textColor="#ff000000"
+                    android:textSize="18sp"
 
-                    android:textSize="18sp" />
+                    />
             </LinearLayout>
             <TextView
                 android:id="@+id/snippet_des"
@@ -46,7 +47,7 @@
                 android:textSize="14sp" />
             <Button
                 android:id="@+id/snippet_visitBtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:text="Visit Shop Page"
                 android:textSize="9sp"

@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -16,6 +17,7 @@ import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.FragmentShopMenuBinding;
 import com.codecoy.caribbean.listeners.OnMenuItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 public class ShopMenu extends Fragment {
 
@@ -39,24 +41,28 @@ public class ShopMenu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FragmentShopMenuBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_shop_menu, container, false);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
 
         Repository.getShopMenu(shop.getId(), new OnMenuItemLoadListeners() {
             @Override
             public void onMenuLoaded(MenuItem itemList) {
                 Glide.with(getContext()).load(itemList.getImageUri()).into(mDataBinding.shopMenuMenuImage);
-
+                loading.dismiss();
             }
 
             @Override
             public void onEmpty() {
                 mDataBinding.shopMenuMsg.setVisibility(View.VISIBLE);
-
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.shopMenuMsg.setVisibility(View.VISIBLE);
                 mDataBinding.shopMenuMsg.setText("Error "+e);
+                loading.dismiss();
             }
         });
         return mDataBinding.getRoot();

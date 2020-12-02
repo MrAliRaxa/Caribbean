@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -19,6 +20,7 @@ import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentLocationBinding;
 import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class Location extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        FragmentLocationBinding mDataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_location, container, false);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
 
         Repository.getLocations(shop.getId(), DatabaseAddresses.getShopLocationCollection(), new OnShopLocationLoadListeners() {
             @Override
@@ -56,17 +61,20 @@ public class Location extends Fragment {
                 RecyclerView recyclerView=mDataBinding.locationRecyclerView;
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(new LocationsAdaptor(getContext(),locationList));
+                loading.dismiss();
             }
 
             @Override
             public void onEmpty() {
                 mDataBinding.locationMsg.setVisibility(View.VISIBLE);
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.locationMsg.setVisibility(View.VISIBLE);
                 mDataBinding.locationMsg.setText("Error "+e);
+                loading.dismiss();
             }
         });
 

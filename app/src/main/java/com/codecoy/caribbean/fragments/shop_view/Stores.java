@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -17,6 +18,7 @@ import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.FragmentStoresBinding;
 import com.codecoy.caribbean.listeners.OnItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 import java.util.List;
 
@@ -43,23 +45,30 @@ public class Stores extends Fragment {
         // Inflate the layout for this fragment
         FragmentStoresBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_stores, container, false);
 
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
 
         Repository.getShopStoreItem(shop.getId(), new OnItemLoadListeners() {
             @Override
             public void onItemLoaded(List<Item> itemList) {
                 mDataBinding.storesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 mDataBinding.storesRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+                loading.dismiss();
+
             }
 
             @Override
             public void onEmpty() {
                 mDataBinding.storesMsg.setVisibility(View.VISIBLE);
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.storesMsg.setVisibility(View.VISIBLE);
                 mDataBinding.storesMsg.setText("Error "+e);
+                loading.dismiss();
 
             }
         });

@@ -136,7 +136,6 @@
                         app:cardCornerRadius="20dp"
                         app:cardElevation="7dp"
                         android:visibility="gone"
-
                         >
                         <LinearLayout
                             android:layout_width="wrap_content"

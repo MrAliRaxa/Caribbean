@@ -10,6 +10,7 @@ public class Shop implements Parcelable {
     private String bannerUrl;
     private String contact;
     private String categoryId;
+    private int shopVisitor;
     private double lat;
     private double lng;
     private String id;
@@ -24,26 +25,10 @@ public class Shop implements Parcelable {
         bannerUrl = in.readString();
         contact = in.readString();
         categoryId = in.readString();
+        shopVisitor = in.readInt();
         lat = in.readDouble();
         lng = in.readDouble();
         id = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(logoUrl);
-        dest.writeString(bannerUrl);
-        dest.writeString(contact);
-        dest.writeString(categoryId);
-        dest.writeDouble(lat);
-        dest.writeDouble(lng);
-        dest.writeString(id);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<Shop> CREATOR = new Creator<Shop>() {
@@ -57,6 +42,14 @@ public class Shop implements Parcelable {
             return new Shop[size];
         }
     };
+
+    public int getShopVisitor() {
+        return shopVisitor;
+    }
+
+    public void setShopVisitor(int shopVisitor) {
+        this.shopVisitor = shopVisitor;
+    }
 
     public String getId() {
         return id;
@@ -123,4 +116,21 @@ public class Shop implements Parcelable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(logoUrl);
+        dest.writeString(bannerUrl);
+        dest.writeString(contact);
+        dest.writeString(categoryId);
+        dest.writeInt(shopVisitor);
+        dest.writeDouble(lat);
+        dest.writeDouble(lng);
+        dest.writeString(id);
+    }
 }

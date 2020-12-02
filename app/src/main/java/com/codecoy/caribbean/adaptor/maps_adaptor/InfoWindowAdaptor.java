@@ -27,7 +27,7 @@ public class InfoWindowAdaptor implements GoogleMap.InfoWindowAdapter {
     public View getInfoWindow(Marker marker) {
         MarkerSnippetLayoutBinding snippetLayoutBinding= DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.marker_snippet_layout,null,false);
         snippetLayoutBinding.snippetTitle.setText(marker.getTitle());
-        snippetLayoutBinding.snippetDes.setText(marker.getSnippet());
+        snippetLayoutBinding.snippetDes.setText("");
         return snippetLayoutBinding.getRoot();
     }
 

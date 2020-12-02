@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -19,6 +20,7 @@ import com.codecoy.caribbean.databinding.FragmentATMLocationsBinding;
 import com.codecoy.caribbean.listeners.OnShopClick;
 import com.codecoy.caribbean.listeners.OnShopLocationLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -52,6 +54,10 @@ public class ATMLocations extends Fragment {
 
         FragmentATMLocationsBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_a_t_m_locations, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+
         mapFragment.getMapAsync(googleMap -> {
             mMap=googleMap;
             if(mMap!=null){
@@ -59,7 +65,6 @@ public class ATMLocations extends Fragment {
                 Repository.getLocations(shop.getId(), DatabaseAddresses.getShopATMCollection(), new OnShopLocationLoadListeners() {
                     @Override
                     public void onLocationsLoaded(List<ShopLocation> locationList) {
-
 
                         for(ShopLocation shopLocation:locationList){
                             mMap.addMarker(new MarkerOptions().position(new LatLng(shopLocation.getLat(),shopLocation.getLng())));
@@ -75,16 +80,17 @@ public class ATMLocations extends Fragment {
                         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
                         mDataBinding.atmLocationRecyclerView.setLayoutManager(layoutManager);
                         mDataBinding.atmLocationRecyclerView.setAdapter(locationAdaptor);
+                        loading.dismiss();
                     }
 
                     @Override
                     public void onEmpty() {
-
+                        loading.dismiss();
                     }
 
                     @Override
                     public void onFailure(String e) {
-
+                        loading.dismiss();
                     }
                 });
 

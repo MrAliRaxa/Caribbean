@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -18,6 +19,7 @@ import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentNorthBinding;
 import com.codecoy.caribbean.listeners.OnItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 import java.util.List;
 
@@ -45,23 +47,29 @@ public class North extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_north, container, false);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
 
         Repository.getShopItems(shop.getId(), DatabaseAddresses.getNorthCollection(), new OnItemLoadListeners() {
             @Override
             public void onItemLoaded(List<Item> itemList) {
                 mDataBinding.northRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 mDataBinding.northRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+                loading.dismiss();
             }
 
             @Override
             public void onEmpty() {
                 mDataBinding.northMsg.setVisibility(View.VISIBLE);
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.northMsg.setVisibility(View.VISIBLE);
                 mDataBinding.northMsg.setText("Error "+e);
+                loading.dismiss();
             }
         });
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.constants.ShopBoundry;
 import com.codecoy.caribbean.databinding.ActivityTouristTypeSelectionBinding;
 
 public class TouristTypeSelection extends AppCompatActivity {
@@ -23,7 +24,9 @@ public class TouristTypeSelection extends AppCompatActivity {
         mDataBinding.touristSelectionLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TouristTypeSelection.this,LocalTourist.class));
+                Intent intent=new Intent(TouristTypeSelection.this,LocalTourist.class);
+                intent.putExtra("visitor", ShopBoundry.LOCAL);
+                startActivity(intent);
 
             }
         });
@@ -32,7 +35,9 @@ public class TouristTypeSelection extends AppCompatActivity {
         mDataBinding.touristSelectionTourist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TouristTypeSelection.this,TourismTips.class));
+                Intent intent=new Intent(TouristTypeSelection.this,TourismTips.class);
+                intent.putExtra("visitor", ShopBoundry.TOURIST);
+                startActivity(intent);
 
             }
         });

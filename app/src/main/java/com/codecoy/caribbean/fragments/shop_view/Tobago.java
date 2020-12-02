@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -18,6 +19,7 @@ import com.codecoy.caribbean.database_controller.DatabaseAddresses;
 import com.codecoy.caribbean.databinding.FragmentTobagoBinding;
 import com.codecoy.caribbean.listeners.OnItemLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 import java.util.List;
 
@@ -45,22 +47,29 @@ public class Tobago extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_tobago, container, false);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+
         Repository.getShopItems(shop.getId(), DatabaseAddresses.getTobagoCollection(), new OnItemLoadListeners() {
             @Override
             public void onItemLoaded(List<Item> itemList) {
                 mDataBinding.southRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 mDataBinding.southRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+                loading.dismiss();
             }
 
 
             public void onEmpty() {
                 mDataBinding.southMsg.setVisibility(View.VISIBLE);
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.southMsg.setVisibility(View.VISIBLE);
                 mDataBinding.southMsg.setText("Error "+e);
+                loading.dismiss();
             }
         });
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.codecoy.caribbean.R;
+import com.codecoy.caribbean.constants.ShopBoundry;
 import com.codecoy.caribbean.databinding.ActivityTourismTipsBinding;
 
 public class TourismTips extends AppCompatActivity {
@@ -20,7 +21,9 @@ public class TourismTips extends AppCompatActivity {
         tipsBinding.touristTipsNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TourismTips.this,ExplorerTourism.class));
+                Intent intent=new Intent(TourismTips.this,ExplorerTourism.class);
+                intent.putExtra("visitor", getIntent().getIntExtra("visitor",0));
+                startActivity(intent);
             }
         });
     }

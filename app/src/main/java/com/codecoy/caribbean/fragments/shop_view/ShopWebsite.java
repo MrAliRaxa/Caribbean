@@ -1,5 +1,6 @@
 package com.codecoy.caribbean.fragments.shop_view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.databinding.FragmentShopWebsiteBinding;
 import com.codecoy.caribbean.listeners.OnStringLoadListeners;
 import com.codecoy.caribbean.repository.Repository;
+import com.codecoy.caribbean.util.DialogBuilder;
 
 
 public class ShopWebsite extends Fragment {
@@ -41,10 +43,14 @@ public class ShopWebsite extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FragmentShopWebsiteBinding mDataBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_shop_website, container, false);
+        ProgressDialog loading= DialogBuilder.getSimpleLoadingDialog(getContext(),"Loading","Please wait for server response . . .");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
 
         Repository.getShopWebsite(shop.getId(), new OnStringLoadListeners() {
             @Override
             public void onStringLoaded(String s) {
+                loading.dismiss();
                 mDataBinding.shopWebsiteText.setPaintFlags(mDataBinding.shopWebsiteText.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
                 mDataBinding.shopWebsiteText.setText(s);
                 mDataBinding.shopWebsiteText.setOnClickListener(new View.OnClickListener() {
@@ -60,11 +66,13 @@ public class ShopWebsite extends Fragment {
             @Override
             public void onEmpty() {
                 mDataBinding.shopWebsiteText.setText("Website not Added");
+                loading.dismiss();
             }
 
             @Override
             public void onFailure(String e) {
                 mDataBinding.shopWebsiteText.setText("Error "+e);
+                loading.dismiss();
             }
         });
 
