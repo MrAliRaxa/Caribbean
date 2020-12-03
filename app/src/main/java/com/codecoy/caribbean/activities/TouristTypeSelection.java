@@ -24,7 +24,7 @@ public class TouristTypeSelection extends AppCompatActivity {
         mDataBinding.touristSelectionLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(TouristTypeSelection.this,LocalTourist.class);
+                Intent intent=new Intent(TouristTypeSelection.this,ExplorerTourism.class);
                 intent.putExtra("visitor", ShopBoundry.LOCAL);
                 startActivity(intent);
 

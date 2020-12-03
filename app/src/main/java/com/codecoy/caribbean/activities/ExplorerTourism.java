@@ -41,6 +41,7 @@ import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.data_model.ShopCategoryModel;
 import com.codecoy.caribbean.databinding.ActivityExplorerTourismBinding;
 import com.codecoy.caribbean.listeners.OnCategoriesLoadListeners;
+import com.codecoy.caribbean.listeners.OnCategoryClick;
 import com.codecoy.caribbean.listeners.OnLocationLoaded;
 import com.codecoy.caribbean.listeners.OnShopLoadListeners;
 import com.codecoy.caribbean.listeners.OnSliderLoadListeners;
@@ -136,7 +137,15 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
         Repository.getCategories(new OnCategoriesLoadListeners() {
             @Override
             public void onCategoriesLoaded(List<ShopCategoryModel> categoryModels) {
-                CategoriesAdaptor categoriesAdaptor = new CategoriesAdaptor(getContext(), categoryModels);
+                CategoriesAdaptor categoriesAdaptor = new CategoriesAdaptor(getContext(), categoryModels, new OnCategoryClick() {
+                    @Override
+                    public void onClick(ShopCategoryModel shopCategoryModel, int index) {
+                        Intent intent=new Intent(getContext(), ShopsViewer.class);
+                        intent.putExtra("categoryId",shopCategoryModel.getId());
+                        intent.putExtra("visitor", visitorType);
+                        getContext().startActivity(intent);
+                    }
+                });
                 mDataBinding.explorerTourismCategories.setAdapter(categoriesAdaptor);
 
             }
@@ -171,6 +180,15 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
                                         }
                                     });
 
+                                    for(int i=0;i<shops.size();i++){
+                                        if(visitorType==ShopBoundry.TOURIST){
+                                            if(shops.get(i).getShopVisitor()==ShopBoundry.LOCAL){
+                                                Shop remove = shops.remove(i);
+                                                Log.d(TAG, "onShopsLoaded: "+remove.getName());
+                                            }
+                                        }
+
+                                    }
 
                                     if (mMap != null) {
 
@@ -232,6 +250,8 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
                                 }
                             });
+                        }else if(multiplePermissionsReport.isAnyPermissionPermanentlyDenied()){
+                            getSupportFragmentManager().popBackStack();
                         }
                     }
 
@@ -300,8 +320,9 @@ public class ExplorerTourism extends AppCompatActivity implements OnMapReadyCall
 
     private void showGPSEnableDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getContext())
-                .setMessage("GPS")
-                .setPositiveButton("Your gps", new DialogInterface.OnClickListener() {
+                .setTitle("Enable GPS")
+                .setMessage("please enable position")
+                .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
