@@ -58,13 +58,13 @@ public class Directory extends Fragment {
 
                 @Override
                 public void onEmpty() {
-                    mDataBinding.directoryMsg.setVisibility(View.GONE);
+                    mDataBinding.directoryMsg.setVisibility(View.VISIBLE);
                     loading.dismiss();
                 }
 
                 @Override
                 public void onFailure(String e) {
-                    mDataBinding.directoryMsg.setVisibility(View.GONE);
+                    mDataBinding.directoryMsg.setVisibility(View.VISIBLE);
                     mDataBinding.directoryMsg.setText("Error "+e);
                     loading.dismiss();
 

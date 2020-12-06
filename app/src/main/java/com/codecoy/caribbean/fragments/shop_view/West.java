@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsAdaptor;
+import com.codecoy.caribbean.adaptor.recycler_adaptor.DealsNoPreviewAdaptor;
 import com.codecoy.caribbean.data_model.Item;
 import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.database_controller.DatabaseAddresses;
@@ -57,7 +58,7 @@ public class West extends Fragment {
             public void onItemLoaded(List<Item> itemList) {
                 mDataBinding.southRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 loading.dismiss();
-                mDataBinding.southRecyclerView.setAdapter(new DealsAdaptor(getContext(),itemList));
+                mDataBinding.southRecyclerView.setAdapter(new DealsNoPreviewAdaptor(getContext(),itemList));
 
             }
 

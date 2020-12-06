@@ -15,6 +15,7 @@ import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.activities.ShopsViewer;
 import com.codecoy.caribbean.data_model.ShopCategoryModel;
 import com.codecoy.caribbean.databinding.CategoriesLayoutBinding;
+import com.codecoy.caribbean.listeners.OnCategoryClick;
 
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.Vi
 
     private Context context;
     private List<ShopCategoryModel> shopCategoryModels;
+    private OnCategoryClick onCategoryClick;
 
-    public CategoriesAdaptor(Context context, List<ShopCategoryModel> shopCategoryModels) {
+    public CategoriesAdaptor(Context context, List<ShopCategoryModel> shopCategoryModels, OnCategoryClick onCategoryClick) {
         this.context = context;
         this.shopCategoryModels = shopCategoryModels;
+        this.onCategoryClick = onCategoryClick;
     }
 
     @NonNull
@@ -43,9 +46,8 @@ public class CategoriesAdaptor extends RecyclerView.Adapter<CategoriesAdaptor.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, ShopsViewer.class);
-                intent.putExtra("categoryId",shopCategoryModels.get(position).getId());
-                context.startActivity(intent);
+                onCategoryClick.onClick(shopCategoryModels.get(position),position);
+
             }
         });
     }

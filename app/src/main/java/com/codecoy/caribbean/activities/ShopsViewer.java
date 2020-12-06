@@ -35,6 +35,7 @@ import com.codecoy.caribbean.R;
 import com.codecoy.caribbean.adaptor.maps_adaptor.InfoWindowAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.ShopAdaptor;
 import com.codecoy.caribbean.adaptor.recycler_adaptor.SliderAdaptor;
+import com.codecoy.caribbean.constants.ShopBoundry;
 import com.codecoy.caribbean.constants.SliderType;
 import com.codecoy.caribbean.data_model.Shop;
 import com.codecoy.caribbean.data_model.SliderContent;
@@ -71,6 +72,7 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
     private static final String TAG = "ShopsViewer";
     private ActivityShopsViewerBinding mDataBinding;
     private String categoryId;
+    private int visitorType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +84,9 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.explorer_tourism_map);
         mapFragment.getMapAsync(ShopsViewer.this);
 
-
+        if(getIntent().getExtras()!=null){
+            visitorType=getIntent().getIntExtra("visitor",0);
+        }
         sliderView=mDataBinding.explorerTourismSlider;
         _1kmView=mDataBinding.oneKm;
         _3kmView=mDataBinding.threeKm;
@@ -114,6 +118,15 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onShopsLoaded(List<Shop> shops) {
 
+                for(int i=0;i<shops.size();i++){
+                    if(visitorType== ShopBoundry.TOURIST){
+                        if(shops.get(i).getShopVisitor()==ShopBoundry.LOCAL){
+                            Shop remove = shops.remove(i);
+                            Log.d(TAG, "onShopsLoaded: "+remove.getName());
+                        }
+                    }
+
+                }
                 moveToMyLocation();
                 mDataBinding.myLocationBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -135,6 +148,11 @@ public class ShopsViewer extends AppCompatActivity implements OnMapReadyCallback
                 if(mMap!=null){
 
                     for(Shop shop:shops){
+
+
+
+
+
                         LatLng latLng=new LatLng(shop.getLat(),shop.getLng());
                         MarkerOptions markerOptions=new MarkerOptions();
                         markerOptions.title(shop.getName());
