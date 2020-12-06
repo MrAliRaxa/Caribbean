@@ -256,7 +256,6 @@ public class Repository {
             }
         });
     }
-
     public static void getShopMenu(String shopId, OnMenuItemLoadListeners onMenuItemLoadListeners){
 
         Executor executor= Executors.newSingleThreadExecutor();
